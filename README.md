@@ -5,16 +5,16 @@ For this project, we used a virtual machine running Ubuntu 20.04 and wrote the m
 A brief overview of features implemented:
 
 Running programs (with optional priority)
-Reading/setting the system date and time
-Show running processes
-Get help
-Change the command prompt
+Reading/setting the system date and time, 
+Show running processes,
+An alarm,
+Help commands (like a man page), 
 Aliasing commands
 
 Tecniques used:
 
-Process managing
-Memory managment
+Process managing, 
+Memory managment, 
 Scheduling
 
 
