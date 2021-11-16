@@ -13,4 +13,4 @@ Change the command prompt
 Aliasing commands
 To accomplish this, we implemented system requests including requesting input and sending output through COM ports to line printers and dumb terminals. Our process dispatcher uses and round-robin algorithm with configurable process priorities.
 
-User Manual.pdf
+https://github.com/VVonderboi/MPXOS/blob/05003362c47322290fe205e8aa9a638cfaa90589/User%20Manual.pdf
