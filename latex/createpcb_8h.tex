@@ -1,0 +1,43 @@
+\hypertarget{createpcb_8h}{}\doxysection{mpx\+\_\+core/modules/createpcb.h File Reference}
+\label{createpcb_8h}\index{mpx\_core/modules/createpcb.h@{mpx\_core/modules/createpcb.h}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{createpcb_8h_aa3b385f0e9fa8cb0dc70b3603ab4e615}{create\+PCB}} (char $\ast$name, int class, int priority)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{createpcb_8h_aa3b385f0e9fa8cb0dc70b3603ab4e615}\label{createpcb_8h_aa3b385f0e9fa8cb0dc70b3603ab4e615}} 
+\index{createpcb.h@{createpcb.h}!createPCB@{createPCB}}
+\index{createPCB@{createPCB}!createpcb.h@{createpcb.h}}
+\doxysubsubsection{\texorpdfstring{createPCB()}{createPCB()}}
+{\footnotesize\ttfamily void create\+PCB (\begin{DoxyParamCaption}\item[{char $\ast$}]{name,  }\item[{int}]{class,  }\item[{int}]{priority }\end{DoxyParamCaption})}
+
+Name = createpcb~\newline
+Query = /createpcb = (parameter);~\newline
+Parameters\+: name/class/priority (\mbox{[}1-\/20 alphanumeric characters\mbox{]}/y/z)~\newline
+Description\+: Creates a new \mbox{\hyperlink{structPCB}{PCB}} based on the parameters and inserts into the queue. 
+
+Definition at line 17 of file createpcb.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{17                                                    \{}
+\DoxyCodeLine{18     \mbox{\hyperlink{structPCB}{PCB}}* found = \mbox{\hyperlink{pcb_8h_ae4562089d23760f4f92aabb94fe77dad}{FindPCB}}(name);}
+\DoxyCodeLine{19     \textcolor{keywordflow}{if} (strlen(name)>20 || strlen(name)==0 || \textcolor{keyword}{class} > 1 || class < 0 || priority > 9 || priority < 0)\{}
+\DoxyCodeLine{20         klogv(\textcolor{stringliteral}{"{}Not a valid request. Check attribute ranges"{}});}
+\DoxyCodeLine{21     \}}
+\DoxyCodeLine{22     }
+\DoxyCodeLine{23     \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{24         \textcolor{keywordflow}{if}(found!=NULL)\{}
+\DoxyCodeLine{25             klogv(\textcolor{stringliteral}{"{}Already a PCB with same name."{}});}
+\DoxyCodeLine{26         \}}
+\DoxyCodeLine{27         \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{28             \mbox{\hyperlink{structPCB}{PCB}}* newPCB = \mbox{\hyperlink{pcb_8h_a0f0303546dd916fa3658ecb1d71b6af6}{SetupPCB}}(name, \textcolor{keyword}{class}, priority);}
+\DoxyCodeLine{29             \mbox{\hyperlink{pcb_8h_aef4baa056afc1486b582aeb3857e1596}{insertPCB}}(newPCB);}
+\DoxyCodeLine{30         \}       }
+\DoxyCodeLine{31     \}}
+\DoxyCodeLine{32 \}}
+
+\end{DoxyCode}

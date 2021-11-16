@@ -1,0 +1,570 @@
+\hypertarget{comhand_8h}{}\doxysection{mpx\+\_\+core/modules/comhand.h File Reference}
+\label{comhand_8h}\index{mpx\_core/modules/comhand.h@{mpx\_core/modules/comhand.h}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{comhand_8h_aa8431482b7144d738dbae983febc384b}{comhand}} ()
+\item 
+char $\ast$ \mbox{\hyperlink{comhand_8h_a35becddc712bb8173f026a72960bb90f}{parameter}} (char $\ast$cmd\+Buffer)
+\item 
+void \mbox{\hyperlink{comhand_8h_af2e3fc21c963c4dc2c6b8bc7139e2fb1}{bcd\+ToI}} (unsigned char bcd\+Value)
+\item 
+unsigned char \mbox{\hyperlink{comhand_8h_a2e1fc84515d116c4f6dbe88d321abf65}{i\+To\+Bcd}} (int int\+Val)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{comhand_8h_af2e3fc21c963c4dc2c6b8bc7139e2fb1}\label{comhand_8h_af2e3fc21c963c4dc2c6b8bc7139e2fb1}} 
+\index{comhand.h@{comhand.h}!bcdToI@{bcdToI}}
+\index{bcdToI@{bcdToI}!comhand.h@{comhand.h}}
+\doxysubsubsection{\texorpdfstring{bcdToI()}{bcdToI()}}
+{\footnotesize\ttfamily void bcd\+ToI (\begin{DoxyParamCaption}\item[{unsigned char}]{bcd\+Value }\end{DoxyParamCaption})}
+
+Procedure..\+: bcd\+ToI~\newline
+Description..\+: takes an unsigned char, splits it into two halves where one is \&\textquotesingle{}ed with 0x0F and the other is shifted 4 bits to the right, adds \textquotesingle{}0\textquotesingle{} to them to convert them from ints to chars, and returned together with a string 
+
+Definition at line 567 of file comhand.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{567                                    \{}
+\DoxyCodeLine{568     \textcolor{keywordtype}{int} temp1 = bcdValue \& 0x0F;}
+\DoxyCodeLine{569     \textcolor{keywordtype}{int} temp2 = bcdValue >> 4;}
+\DoxyCodeLine{570     \textcolor{keywordtype}{char} char1 = temp1 + \textcolor{charliteral}{'0'};}
+\DoxyCodeLine{571     \textcolor{keywordtype}{char} char2 = temp2 + \textcolor{charliteral}{'0'};}
+\DoxyCodeLine{572     \textcolor{keywordtype}{char} stringNew[3];}
+\DoxyCodeLine{573     stringNew[1]=char1;}
+\DoxyCodeLine{574     stringNew[0]=char2;}
+\DoxyCodeLine{575     stringNew[2]=\textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{576     printString(stringNew);}
+\DoxyCodeLine{577 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{comhand_8h_aa8431482b7144d738dbae983febc384b}\label{comhand_8h_aa8431482b7144d738dbae983febc384b}} 
+\index{comhand.h@{comhand.h}!comhand@{comhand}}
+\index{comhand@{comhand}!comhand.h@{comhand.h}}
+\doxysubsubsection{\texorpdfstring{comhand()}{comhand()}}
+{\footnotesize\ttfamily int comhand (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Procedure..\+: comhand Description..\+: \mbox{\hyperlink{comhand_8h_aa8431482b7144d738dbae983febc384b}{comhand()}} takes the query given by the user using \mbox{\hyperlink{serial_8h_a350f06f5a6db9b161dba2ffc658627ef}{polling()}} and decides which command needs to be executed ~\newline
+ Name = shutdown~\newline
+Query = /shutdown;~\newline
+Parameters\+: N/A~\newline
+Description\+: Shuts down the command handler, no longer able to input queries. Asks for confirmation before truly shutting down toamke sure the user intended to do so.
+
+Name = version~\newline
+Query = /version;~\newline
+Parameters\+: N/A~\newline
+Description\+: Returns the version of the project.
+
+Name = help~\newline
+Query = /help = (parameter);~\newline
+Parameters\+: command\+Name~\newline
+Description\+: Returns a string providing information about the desired command\+Name.
+
+Strtok takes the left side of the \textquotesingle{}=\textquotesingle{} in the cmd\+Buffer string and compares to \char`\"{}/help \char`\"{} to check the command before the parameters
+
+Name = set\+Date~\newline
+Query = /set\+Date = (parameter);~\newline
+Parameters\+: month/day/year (xx/yy/zzzz)~\newline
+Description\+: Sets the date based on the inputted string.
+
+Name = get\+Date~\newline
+Query = /get\+Date;~\newline
+Parameters\+: N/A~\newline
+Description\+: Returns the date in string form.
+
+Name = set\+Time~\newline
+Query = /set\+Time = (parameter);~\newline
+Parameters\+: hours\+:minutes\+:seconds (xx/yy/zz)~\newline
+Description\+: Sets the time based on the inputted string.
+
+Name = get\+Time~\newline
+Query = /get\+Time;~\newline
+Parameters\+: N/A~\newline
+Description\+: Returns the time in string form.
+
+Name = createpcb~\newline
+Query = /createpcb = (parameter);~\newline
+Parameters\+: name/class/priority (\mbox{[}1-\/20 alphanumeric characters\mbox{]}/y/z)~\newline
+Description\+: Creates a new \mbox{\hyperlink{structPCB}{PCB}} based on the parameters and inserts into the queue.
+
+\begin{DoxyVerb}else if (strcmp(strtok(bufferCopy,delim),"/createpcb") == 0 ){ 
+    char* params = parameter(bufferCopy);
+
+    if(strcmp(params," ")!=0){
+        char* createName = strtok(params,"/");
+        int class = atoi(strtok(NULL,"/"));
+        int priority = atoi(strtok(NULL,"/"));
+        createPCB(createName, class, priority);
+    }
+
+}
+\end{DoxyVerb}
+
+
+Name = deletepcb~\newline
+Query = /deletepcb = (parameter);~\newline
+Parameters\+: name (1-\/20 alphanumeric characters)~\newline
+Description\+: Deletes the \mbox{\hyperlink{structPCB}{PCB}} with the specified \mbox{\hyperlink{structPCB}{PCB}} if it exists.
+
+Name = setpriority~\newline
+Query = /setpriority = (PCBName)/(priority);~\newline
+Parameters\+: The name of a \mbox{\hyperlink{structPCB}{PCB}} and a priority number~\newline
+Description\+: Sets the priority of a given \mbox{\hyperlink{structPCB}{PCB}}
+
+Name = resume~\newline
+Query = /resume = (PCBName);~\newline
+Parameters\+: The name of a \mbox{\hyperlink{structPCB}{PCB}}~\newline
+Description\+: Resumes a \mbox{\hyperlink{structPCB}{PCB}}
+
+Name = suspend~\newline
+Query = /suspend = (PCBName);~\newline
+Parameters\+: The name of a \mbox{\hyperlink{structPCB}{PCB}}~\newline
+Description\+: Suspends a \mbox{\hyperlink{structPCB}{PCB}}
+
+Name = Show\+Ready~\newline
+Query = /showready;~\newline
+Parameters\+: N/A~\newline
+Description\+: Shows all PCBs in ready queue.
+
+Name = Show\+Blocked~\newline
+Query = /showblocked;~\newline
+Parameters\+: N/A~\newline
+Description\+: Shows all PCBs in blocked queue
+
+Name = Show\+All~\newline
+Query = /showall;~\newline
+Parameters\+: N/A~\newline
+Description\+: Shows all \mbox{\hyperlink{structPCB}{PCB}}\textquotesingle{}s in both queues
+
+Name = Show\+PCB~\newline
+Query = /showpcb = (PCBName);~\newline
+Parameters\+: N/A~\newline
+Description\+: Shows all the attributes for a \mbox{\hyperlink{structPCB}{PCB}}
+
+Name = Block\+PCB~\newline
+Query = /\+Block\+PCB = (pcb\+Name);~\newline
+Parameters\+: Name of a \mbox{\hyperlink{structPCB}{PCB}}~\newline
+Description\+: Puts a \mbox{\hyperlink{structPCB}{PCB}} on the block queue
+
+\begin{DoxyVerb}else if (strcmp(strtok(cmdBuffer,delim),"/blockpcb") == 0 ){ /// Strtok takes the left side of the '=' in the cmdBuffer             string and compares to "/help " to check the command before the parameters
+    char* name = parameter(bufferCopy);
+    BlockPCB(name);
+}
+\end{DoxyVerb}
+
+
+Name = Unblock\+PCB~\newline
+Query = /\+Unblock\+PCB = (parameter);~\newline
+Parameters\+: command\+Name~\newline
+Description\+: Unblocks a \mbox{\hyperlink{structPCB}{PCB}}.
+
+\begin{DoxyVerb}else if (strcmp(strtok(cmdBuffer,delim),"/unblockpcb") == 0 ){ /// Strtok takes the left side of the '=' in the cmdBuffer           string and compares to "/help " to check the command before the parameters
+    char* parameters = parameter(bufferCopy);
+    UnblockPCB(parameters);
+}
+\end{DoxyVerb}
+
+
+Name = isempty~\newline
+Query = /isempty;~\newline
+Parameters\+: None~\newline
+Description\+: Returns and prints if the heap is empty
+
+Name = showallocated~\newline
+Query = /showallocated;~\newline
+Parameters\+: None~\newline
+Description\+: Prints the allocated memory in the heap.
+
+Name = showfree~\newline
+Query = /showfree;~\newline
+Parameters\+: None~\newline
+Description\+: Prints the free portions of memory in the heap
+
+Name = showmem~\newline
+Query = /showmem;~\newline
+Parameters\+: None~\newline
+Description\+: Prints the heap
+
+Definition at line 89 of file comhand.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{89              \{}
+\DoxyCodeLine{90     \textcolor{keywordtype}{char} cmdBuffer[100];}
+\DoxyCodeLine{91     \textcolor{keywordtype}{int} bufferSize = 0;}
+\DoxyCodeLine{92     \textcolor{keywordtype}{int} quit = 0;}
+\DoxyCodeLine{93     \mbox{\hyperlink{help_8h_a8f4c00cc925a572a3d5f2035f1a4faee}{help}}(\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{94     \textcolor{keywordflow}{while}(!quit)\{}
+\DoxyCodeLine{95         }
+\DoxyCodeLine{96         \textcolor{comment}{//get a command}}
+\DoxyCodeLine{97         memset(cmdBuffer, \textcolor{charliteral}{'\(\backslash\)0'}, 100);}
+\DoxyCodeLine{98         bufferSize=99; \textcolor{comment}{//reset size before each call to read}}
+\DoxyCodeLine{99         sys\_req(READ,DEFAULT\_DEVICE,cmdBuffer,\&bufferSize); \textcolor{comment}{// polling is called here}}
+\DoxyCodeLine{100         \textcolor{keywordtype}{char}* bufferCopy = cmdBuffer;}
+\DoxyCodeLine{101         \textcolor{comment}{//serial\_print("{}buffer copy =>"{});}}
+\DoxyCodeLine{102         \textcolor{comment}{//serial\_println(bufferCopy);}}
+\DoxyCodeLine{103 \textcolor{comment}{// Commands}}
+\DoxyCodeLine{104         }
+\DoxyCodeLine{114         \textcolor{keywordflow}{if} (strcmp(cmdBuffer,\textcolor{stringliteral}{"{}/shutdown;"{}}) == 0 || strcmp(cmdBuffer,\textcolor{stringliteral}{"{}/shutdown y;"{}})==0 || strcmp(cmdBuffer,\textcolor{stringliteral}{"{}/shutdown n;"{}})==0)\{}
+\DoxyCodeLine{115             \textcolor{keywordflow}{if}(strcmp(cmdBuffer,\textcolor{stringliteral}{"{}/shutdown;"{}})==0)\{}
+\DoxyCodeLine{116                 serial\_println(\textcolor{stringliteral}{"{}Are you sure you want to shut down? /shutdown y; to confirm or /shutdown n; to stop"{}});}
+\DoxyCodeLine{117                 \textcolor{comment}{//printStringln("{}Are you sure you want to shut down? /shutdown y; to confirm or /shutdown n; to stop"{});}}
+\DoxyCodeLine{118                 flagGlobal=1;}
+\DoxyCodeLine{119                 \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{120             \}}
+\DoxyCodeLine{121             }
+\DoxyCodeLine{122             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(flagGlobal==1 \&\& strcmp(cmdBuffer,\textcolor{stringliteral}{"{}/shutdown y;"{}})==0)\{}
+\DoxyCodeLine{123                 endAll();}
+\DoxyCodeLine{124                 sys\_req(EXIT, DEFAULT\_DEVICE, NULL, NULL);}
+\DoxyCodeLine{125             \}}
+\DoxyCodeLine{126             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(flagGlobal==1 \&\& strcmp(cmdBuffer,\textcolor{stringliteral}{"{}/shutdown n;"{}})==0)\{}
+\DoxyCodeLine{127                 flagGlobal=0;}
+\DoxyCodeLine{128                 \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{129             \}}
+\DoxyCodeLine{130         \}}
+\DoxyCodeLine{131         }
+\DoxyCodeLine{132         }
+\DoxyCodeLine{140         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(cmdBuffer,\textcolor{stringliteral}{"{}/version;"{}}) == 0 )\{}
+\DoxyCodeLine{141         printStringln(\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{142         printStringln(\textcolor{stringliteral}{"{}version"{}});}
+\DoxyCodeLine{143         printStringln(\textcolor{stringliteral}{"{}MPX R5 4/09/2021"{}});}
+\DoxyCodeLine{144         \}}
+\DoxyCodeLine{145         }
+\DoxyCodeLine{153         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(strtok(cmdBuffer,delim),\textcolor{stringliteral}{"{}/help"{}}) == 0 )\{ }
+\DoxyCodeLine{154             \textcolor{keywordtype}{char}* parameters = \mbox{\hyperlink{comhand_8h_a35becddc712bb8173f026a72960bb90f}{parameter}}(bufferCopy);}
+\DoxyCodeLine{155             \mbox{\hyperlink{help_8h_a8f4c00cc925a572a3d5f2035f1a4faee}{help}}(parameters);}
+\DoxyCodeLine{156         \}}
+\DoxyCodeLine{157         }
+\DoxyCodeLine{165         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(strtok(cmdBuffer,delim),\textcolor{stringliteral}{"{}/setdate"{}}) == 0 )\{ }
+\DoxyCodeLine{166             \textcolor{keywordtype}{char}* date = \mbox{\hyperlink{comhand_8h_a35becddc712bb8173f026a72960bb90f}{parameter}}(bufferCopy);}
+\DoxyCodeLine{167             \textcolor{keywordflow}{if}(strcmp(date,\textcolor{stringliteral}{"{} "{}})!=0)\{}
+\DoxyCodeLine{168                 \textcolor{keywordtype}{char} dateCopyNew[strlen(date)];}
+\DoxyCodeLine{169                 strcpy(dateCopyNew,date);}
+\DoxyCodeLine{170                 \mbox{\hyperlink{date_8h_a3fe15201582c4d1835bda8f7bf7df88e}{setDate}}(dateCopyNew);}
+\DoxyCodeLine{171             \}}
+\DoxyCodeLine{172         \}}
+\DoxyCodeLine{173         }
+\DoxyCodeLine{181         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(cmdBuffer,\textcolor{stringliteral}{"{}/getdate;"{}}) == 0 )\{ }
+\DoxyCodeLine{182             \mbox{\hyperlink{date_8h_affb6f9c7b2c1d585677a5bba1da35c06}{getDate}}();}
+\DoxyCodeLine{183         \}}
+\DoxyCodeLine{184         }
+\DoxyCodeLine{192         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(strtok(bufferCopy,delim),\textcolor{stringliteral}{"{}/settime"{}}) == 0 )\{ }
+\DoxyCodeLine{193             \textcolor{keywordtype}{char}* time = \mbox{\hyperlink{comhand_8h_a35becddc712bb8173f026a72960bb90f}{parameter}}(bufferCopy);}
+\DoxyCodeLine{194             }
+\DoxyCodeLine{195             \textcolor{keywordflow}{if}(strcmp(time,\textcolor{stringliteral}{"{} "{}})!=0)\{}
+\DoxyCodeLine{196                 \textcolor{keywordtype}{char} timeCopyNew[strlen(time)];}
+\DoxyCodeLine{197                 strcpy(timeCopyNew,time);}
+\DoxyCodeLine{198                 \mbox{\hyperlink{time_8h_ad4d17ee3c0537762f3447d1755479f3d}{setTime}}(timeCopyNew);}
+\DoxyCodeLine{199             \}}
+\DoxyCodeLine{200             }
+\DoxyCodeLine{201         \}}
+\DoxyCodeLine{202 }
+\DoxyCodeLine{210         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(cmdBuffer,\textcolor{stringliteral}{"{}/gettime;"{}}) == 0 )\{ }
+\DoxyCodeLine{211             \mbox{\hyperlink{time_8h_a1c7c164fd3c7dea7004ece3c6251fc94}{getTime}}();}
+\DoxyCodeLine{212         \}}
+\DoxyCodeLine{213         }
+\DoxyCodeLine{240         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(strtok(bufferCopy,delim),\textcolor{stringliteral}{"{}/deletepcb"{}}) == 0 )\{ }
+\DoxyCodeLine{241             \textcolor{keywordtype}{char}* name = \mbox{\hyperlink{comhand_8h_a35becddc712bb8173f026a72960bb90f}{parameter}}(bufferCopy);}
+\DoxyCodeLine{242             \mbox{\hyperlink{structPCB}{PCB}}* inPCB = \mbox{\hyperlink{pcb_8h_ae4562089d23760f4f92aabb94fe77dad}{FindPCB}}(name);}
+\DoxyCodeLine{243             \textcolor{keywordflow}{if}(strcmp(name,\textcolor{stringliteral}{"{}infinite"{}})==0)\{}
+\DoxyCodeLine{244             }
+\DoxyCodeLine{245                 \textcolor{keywordflow}{if}(inPCB-\/>suspended==1)\{}
+\DoxyCodeLine{246                     \mbox{\hyperlink{deletepcb_8h_aa3861a9f8ed74ec63ad8b73dba14693d}{deletePCB}}(name);}
+\DoxyCodeLine{247                 \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{248                 klogv(\textcolor{stringliteral}{"{}Infinite is not suspended cannot delete"{}});}
+\DoxyCodeLine{249                 \}}
+\DoxyCodeLine{250                 }
+\DoxyCodeLine{251                 }
+\DoxyCodeLine{252             \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{253                 \textcolor{keywordflow}{if}(inPCB-\/>processClass==0)\{}
+\DoxyCodeLine{254                     \mbox{\hyperlink{deletepcb_8h_aa3861a9f8ed74ec63ad8b73dba14693d}{deletePCB}}(name);}
+\DoxyCodeLine{255                 \}}
+\DoxyCodeLine{256                 \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{257                     klogv(\textcolor{stringliteral}{"{}System process, cannot delete."{}});}
+\DoxyCodeLine{258                 \}}
+\DoxyCodeLine{259             \}}
+\DoxyCodeLine{260             }
+\DoxyCodeLine{261         \}}
+\DoxyCodeLine{262         }
+\DoxyCodeLine{263         }
+\DoxyCodeLine{271         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(strtok(bufferCopy,delim),\textcolor{stringliteral}{"{}/setpriority"{}}) == 0 )\{}
+\DoxyCodeLine{272 }
+\DoxyCodeLine{273         \textcolor{keywordtype}{char}* \mbox{\hyperlink{structparam}{param}} = \mbox{\hyperlink{comhand_8h_a35becddc712bb8173f026a72960bb90f}{parameter}}(bufferCopy);}
+\DoxyCodeLine{274         \textcolor{keywordtype}{char}* PCBName = strtok(\mbox{\hyperlink{structparam}{param}},\textcolor{stringliteral}{"{}/"{}});}
+\DoxyCodeLine{275         \textcolor{keywordflow}{if}(\mbox{\hyperlink{pcb_8h_ae4562089d23760f4f92aabb94fe77dad}{FindPCB}}(PCBName)-\/>processClass==0)\{}
+\DoxyCodeLine{276         \textcolor{keywordtype}{int} prio = atoi(strtok(NULL,\textcolor{stringliteral}{"{}/"{}}));}
+\DoxyCodeLine{277         \textcolor{keywordflow}{if} (prio <= 9 \&\& prio >= 0) \{ \textcolor{comment}{// checks to make sure the priority is between 0 and 9}}
+\DoxyCodeLine{278             \textcolor{keywordflow}{if}(strcmp(PCBName,\textcolor{stringliteral}{"{} "{}})!=0)\{ \textcolor{comment}{// checks to make sure the PCB name is not empty}}
+\DoxyCodeLine{279                 \mbox{\hyperlink{structPCB}{PCB}}* pcb = \mbox{\hyperlink{pcb_8h_ae4562089d23760f4f92aabb94fe77dad}{FindPCB}}(PCBName); \textcolor{comment}{// gets the PCB pointer from findPCB}}
+\DoxyCodeLine{280             \textcolor{keywordflow}{if} (pcb == NULL) \{}
+\DoxyCodeLine{281                 klogv(\textcolor{stringliteral}{"{}Invalid PCB name."{}});}
+\DoxyCodeLine{282             \}}
+\DoxyCodeLine{283             \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{284                 pcb-\/>priority = prio; \textcolor{comment}{// updates the priority of the PCB}}
+\DoxyCodeLine{285                 \mbox{\hyperlink{pcb_8h_ab8ca3c5c8c5667e7e0afc327ae3c79e2}{RemovePCB}}(pcb); \textcolor{comment}{// removes the PCB from the current queue it is in}}
+\DoxyCodeLine{286                 \mbox{\hyperlink{pcb_8h_aef4baa056afc1486b582aeb3857e1596}{insertPCB}}(pcb); \textcolor{comment}{// inserts the PCB back into the appropriate queue}}
+\DoxyCodeLine{287             \}}
+\DoxyCodeLine{288             \}}
+\DoxyCodeLine{289         \}}
+\DoxyCodeLine{290         \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{291             klogv(\textcolor{stringliteral}{"{}Invalid priority integer given."{}});}
+\DoxyCodeLine{292         \}}
+\DoxyCodeLine{293         \}}
+\DoxyCodeLine{294         \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{295             klogv(\textcolor{stringliteral}{"{}System process. Cannot change priority."{}});}
+\DoxyCodeLine{296         \}}
+\DoxyCodeLine{297         \}}
+\DoxyCodeLine{298 }
+\DoxyCodeLine{306         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(strtok(bufferCopy,delim),\textcolor{stringliteral}{"{}/resume"{}}) == 0 )\{}
+\DoxyCodeLine{307         }
+\DoxyCodeLine{308             \textcolor{keywordtype}{char}* PCBName = \mbox{\hyperlink{comhand_8h_a35becddc712bb8173f026a72960bb90f}{parameter}}(bufferCopy);}
+\DoxyCodeLine{309             \mbox{\hyperlink{structPCB}{PCB}}* pcb = \mbox{\hyperlink{pcb_8h_ae4562089d23760f4f92aabb94fe77dad}{FindPCB}}(PCBName);}
+\DoxyCodeLine{310             \textcolor{keywordflow}{if} (pcb == NULL) \{}
+\DoxyCodeLine{311                 klogv(\textcolor{stringliteral}{"{}Invalid PCB name."{}});}
+\DoxyCodeLine{312             \}}
+\DoxyCodeLine{313             \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{314                 \textcolor{keywordflow}{if} (pcb-\/>suspended == 0) \{ \textcolor{comment}{// checks to see if the PCB is already resumed}}
+\DoxyCodeLine{315                     klogv(\textcolor{stringliteral}{"{}PCB is already resumed."{}}); \textcolor{comment}{// does nothing to the PCB}}
+\DoxyCodeLine{316                 \}}
+\DoxyCodeLine{317                 \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{318                     \textcolor{keywordflow}{if}(pcb-\/>processClass==0)\{}
+\DoxyCodeLine{319                     pcb-\/>suspended = 0; \textcolor{comment}{// updates the PCB's suspended state to 0}}
+\DoxyCodeLine{320                     \mbox{\hyperlink{pcb_8h_ab8ca3c5c8c5667e7e0afc327ae3c79e2}{RemovePCB}}(pcb); \textcolor{comment}{// removes the PCB from the current queue it is in}}
+\DoxyCodeLine{321                     \mbox{\hyperlink{pcb_8h_aef4baa056afc1486b582aeb3857e1596}{insertPCB}}(pcb); \textcolor{comment}{// inserts the PCB back into the appropriate queue}}
+\DoxyCodeLine{322                     \}}
+\DoxyCodeLine{323                     \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{324                         klogv(\textcolor{stringliteral}{"{}System process. Unable to resume."{}});}
+\DoxyCodeLine{325                     \}}
+\DoxyCodeLine{326                 \}}
+\DoxyCodeLine{327             \}}
+\DoxyCodeLine{328         \}}
+\DoxyCodeLine{329 }
+\DoxyCodeLine{337         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(strtok(bufferCopy,delim),\textcolor{stringliteral}{"{}/suspend"{}}) == 0 )\{}
+\DoxyCodeLine{338     }
+\DoxyCodeLine{339             \textcolor{keywordtype}{char}* PCBName = \mbox{\hyperlink{comhand_8h_a35becddc712bb8173f026a72960bb90f}{parameter}}(bufferCopy);}
+\DoxyCodeLine{340             \mbox{\hyperlink{structPCB}{PCB}}* pcb = \mbox{\hyperlink{pcb_8h_ae4562089d23760f4f92aabb94fe77dad}{FindPCB}}(PCBName);}
+\DoxyCodeLine{341             \textcolor{keywordflow}{if} (pcb == NULL) \{}
+\DoxyCodeLine{342             klogv(\textcolor{stringliteral}{"{}Invalid PCB name."{}});}
+\DoxyCodeLine{343             \}}
+\DoxyCodeLine{344             \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{345                 \textcolor{keywordflow}{if} (pcb-\/>suspended == 1) \{ \textcolor{comment}{// checks to see if the PCB is already suspended}}
+\DoxyCodeLine{346                     klogv(\textcolor{stringliteral}{"{}PCB is already suspended."{}}); \textcolor{comment}{// does nothing to the PCB}}
+\DoxyCodeLine{347                 \}}
+\DoxyCodeLine{348                 \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{349                     \textcolor{keywordflow}{if}(pcb-\/>processClass==0)\{}
+\DoxyCodeLine{350                     pcb-\/>suspended = 1; \textcolor{comment}{// updates the PCB's suspended state to 1}}
+\DoxyCodeLine{351                     \mbox{\hyperlink{pcb_8h_ab8ca3c5c8c5667e7e0afc327ae3c79e2}{RemovePCB}}(pcb); \textcolor{comment}{// removes the PCB from the current queue it is in}}
+\DoxyCodeLine{352                     \mbox{\hyperlink{pcb_8h_aef4baa056afc1486b582aeb3857e1596}{insertPCB}}(pcb); \textcolor{comment}{// inserts the PCB back into the appropriate queue}}
+\DoxyCodeLine{353                     \}}
+\DoxyCodeLine{354                     \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{355                         klogv(\textcolor{stringliteral}{"{}System process. Unable to suspend."{}});}
+\DoxyCodeLine{356                     \}}
+\DoxyCodeLine{357                 \}}
+\DoxyCodeLine{358             \}}
+\DoxyCodeLine{359         \}}
+\DoxyCodeLine{360         }
+\DoxyCodeLine{361 }
+\DoxyCodeLine{362         \textcolor{comment}{/*else if (strcmp(cmdBuffer,"{}/testpcb;"{}) == 0 )\{ }}
+\DoxyCodeLine{363 \textcolor{comment}{            testPCB();}}
+\DoxyCodeLine{364 \textcolor{comment}{        \}*/}}
+\DoxyCodeLine{372         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(cmdBuffer,\textcolor{stringliteral}{"{}/showready;"{}}) == 0 )\{ }
+\DoxyCodeLine{373             printStringln(\textcolor{stringliteral}{"{}"{}});          }
+\DoxyCodeLine{374             \mbox{\hyperlink{showpcbs_8h_a378d05ceba8409dae4159482fbf33b4f}{ShowReady}}();}
+\DoxyCodeLine{375         \}}
+\DoxyCodeLine{383         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(cmdBuffer,\textcolor{stringliteral}{"{}/showblocked;"{}}) == 0 )\{ }
+\DoxyCodeLine{384             printStringln(\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{385             \mbox{\hyperlink{showpcbs_8h_a2011b13f6256e3418db98b24aa59195b}{ShowBlocked}}();}
+\DoxyCodeLine{386         \}}
+\DoxyCodeLine{394         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(cmdBuffer,\textcolor{stringliteral}{"{}/showall;"{}}) == 0 )\{ }
+\DoxyCodeLine{395             printStringln(\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{396             \mbox{\hyperlink{showpcbs_8h_af2b6bb6afc477fdc5c5c410674b27040}{ShowAll}}();}
+\DoxyCodeLine{397         \}}
+\DoxyCodeLine{405         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(strtok(bufferCopy,delim),\textcolor{stringliteral}{"{}/showpcb"{}}) == 0 )\{}
+\DoxyCodeLine{406     }
+\DoxyCodeLine{407             \textcolor{keywordtype}{char}* PCBName = \mbox{\hyperlink{comhand_8h_a35becddc712bb8173f026a72960bb90f}{parameter}}(bufferCopy);}
+\DoxyCodeLine{408             \mbox{\hyperlink{showpcbs_8h_a31dafb73d32e508d7b4192692167bff8}{ShowPCB}}(PCBName);}
+\DoxyCodeLine{409         \}}
+\DoxyCodeLine{410 }
+\DoxyCodeLine{411         \textcolor{comment}{/*else if (strcmp(cmdBuffer,"{}/headtail;"{}) == 0 )\{ }}
+\DoxyCodeLine{412 \textcolor{comment}{            queue* q = (queue*) GetReadyQ();}}
+\DoxyCodeLine{413 \textcolor{comment}{            serial\_println(q-\/>head-\/>processName);}}
+\DoxyCodeLine{414 \textcolor{comment}{            serial\_println(q-\/>tail-\/>processName);}}
+\DoxyCodeLine{415 \textcolor{comment}{        \}*/}}
+\DoxyCodeLine{416         }
+\DoxyCodeLine{443         \textcolor{comment}{//yield goes here}}
+\DoxyCodeLine{444         \textcolor{comment}{/*else if(strcmp(cmdBuffer,"{}/yield;"{}) == 0)\{}}
+\DoxyCodeLine{445 \textcolor{comment}{            asm volatile("{}int \$60"{});}}
+\DoxyCodeLine{446 \textcolor{comment}{            sys\_req(IDLE, DEFAULT\_DEVICE, NULL, NULL);}}
+\DoxyCodeLine{447 \textcolor{comment}{        \}*/}}
+\DoxyCodeLine{448         }
+\DoxyCodeLine{449         }
+\DoxyCodeLine{450         }
+\DoxyCodeLine{451         }
+\DoxyCodeLine{452         \textcolor{comment}{//loadr3 goes here}}
+\DoxyCodeLine{453         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(cmdBuffer,\textcolor{stringliteral}{"{}/loadr3;"{}}) == 0)\{}
+\DoxyCodeLine{454             \textcolor{comment}{//ask user for pcb name; }}
+\DoxyCodeLine{455             testProcsr3();}
+\DoxyCodeLine{456             }
+\DoxyCodeLine{457         \}}
+\DoxyCodeLine{458         }
+\DoxyCodeLine{460         \textcolor{comment}{/*else if(strcmp(cmdBuffer,"{}/test;"{}) == 0)\{}}
+\DoxyCodeLine{461 \textcolor{comment}{            }}
+\DoxyCodeLine{462 \textcolor{comment}{            alarmTest();}}
+\DoxyCodeLine{463 \textcolor{comment}{            }}
+\DoxyCodeLine{464 \textcolor{comment}{        \}*/}}
+\DoxyCodeLine{466 }
+\DoxyCodeLine{467         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(strtok(bufferCopy,delim),\textcolor{stringliteral}{"{}/alarm"{}}) == 0 )\{ \textcolor{comment}{//alarm = hh/mm/ss/message;}}
+\DoxyCodeLine{468             \textcolor{keywordtype}{char}* alarmstring = \mbox{\hyperlink{comhand_8h_a35becddc712bb8173f026a72960bb90f}{parameter}}(bufferCopy);}
+\DoxyCodeLine{469             \textcolor{keywordflow}{if}(strcmp(alarmstring,\textcolor{stringliteral}{"{} "{}})!=0)\{}
+\DoxyCodeLine{470                 \textcolor{keywordtype}{char} alarmStringNew[strlen(alarmstring)];}
+\DoxyCodeLine{471                 strcpy(alarmStringNew,alarmstring);}
+\DoxyCodeLine{472                 \textcolor{keywordflow}{if}(strlen(alarmStringNew)<=10)\{}
+\DoxyCodeLine{473                     klogv(\textcolor{stringliteral}{"{}Wrong format, 2+ chars for message and 2 characters for time"{}});}
+\DoxyCodeLine{474                     \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{475                 \}}
+\DoxyCodeLine{476                 \textcolor{comment}{//two arrays, 1 is first 8 char for time, second is message (9-\/strlen)}}
+\DoxyCodeLine{477                 \textcolor{keywordtype}{char} timearray[10];}
+\DoxyCodeLine{478                 timearray[0]=alarmStringNew[0];}
+\DoxyCodeLine{479                 timearray[1]=alarmStringNew[1];}
+\DoxyCodeLine{480                 timearray[2]=alarmStringNew[2];}
+\DoxyCodeLine{481                 timearray[3]=alarmStringNew[3];}
+\DoxyCodeLine{482                 timearray[4]=alarmStringNew[4];}
+\DoxyCodeLine{483                 timearray[5]=alarmStringNew[5];}
+\DoxyCodeLine{484                 timearray[6]=alarmStringNew[6];}
+\DoxyCodeLine{485                 timearray[7]=alarmStringNew[7];}
+\DoxyCodeLine{486                 timearray[8]=alarmStringNew[8];}
+\DoxyCodeLine{487                 \textcolor{keywordtype}{int} arraysize =strlen(alarmStringNew) -\/ 10;}
+\DoxyCodeLine{488                 \textcolor{keywordtype}{char} messagearray[arraysize];   }
+\DoxyCodeLine{489                 \textcolor{keywordtype}{int} i=0;}
+\DoxyCodeLine{490                 \textcolor{keywordtype}{int} j=9;}
+\DoxyCodeLine{491                 \textcolor{keywordflow}{while}(i<=strlen(alarmStringNew) -\/ 10)\{}
+\DoxyCodeLine{492                     messagearray[i]=alarmStringNew[j];}
+\DoxyCodeLine{493                     i++;}
+\DoxyCodeLine{494                     j++;                    }
+\DoxyCodeLine{495                 \}}
+\DoxyCodeLine{496                 }
+\DoxyCodeLine{497                 \mbox{\hyperlink{structalarms}{alarms}}* newAlarm = alarm(messagearray, timearray);}
+\DoxyCodeLine{498                 insertAlarm(newAlarm);}
+\DoxyCodeLine{499                 }
+\DoxyCodeLine{500             \}}
+\DoxyCodeLine{501         \}}
+\DoxyCodeLine{502         }
+\DoxyCodeLine{503         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(cmdBuffer,\textcolor{stringliteral}{"{}/showallalarms;"{}}) == 0)\{}
+\DoxyCodeLine{504             showAlarms();}
+\DoxyCodeLine{505         \}}
+\DoxyCodeLine{506         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(cmdBuffer,\textcolor{stringliteral}{"{}/infinite;"{}}) == 0)\{}
+\DoxyCodeLine{507             infiniteProcess();}
+\DoxyCodeLine{508         \}}
+\DoxyCodeLine{509         }
+\DoxyCodeLine{516         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(cmdBuffer,\textcolor{stringliteral}{"{}/isempty;"{}}) == 0)\{ \textcolor{comment}{//temporary command left in for our testing}}
+\DoxyCodeLine{517             printStringln( itoa(isEmpty()) );}
+\DoxyCodeLine{518         \}}
+\DoxyCodeLine{525         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(cmdBuffer,\textcolor{stringliteral}{"{}/showallocated;"{}}) == 0)\{}
+\DoxyCodeLine{526             showAllocated();}
+\DoxyCodeLine{527         \}}
+\DoxyCodeLine{534         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(cmdBuffer,\textcolor{stringliteral}{"{}/showfree;"{}}) == 0)\{}
+\DoxyCodeLine{535             showFreed();}
+\DoxyCodeLine{536         \}}
+\DoxyCodeLine{543         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(cmdBuffer,\textcolor{stringliteral}{"{}/showmem;"{}}) == 0)\{}
+\DoxyCodeLine{544             showAll();}
+\DoxyCodeLine{545         \}}
+\DoxyCodeLine{546         }
+\DoxyCodeLine{547         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(cmdBuffer, \textcolor{stringliteral}{"{}/clear;"{}}) == 0)\{}
+\DoxyCodeLine{548             printString(\textcolor{stringliteral}{"{}\(\backslash\)x1B[2J"{}});}
+\DoxyCodeLine{549             printString(\textcolor{stringliteral}{"{}\(\backslash\)x1B[H"{}});}
+\DoxyCodeLine{550             }
+\DoxyCodeLine{551         \}}
+\DoxyCodeLine{552         \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{553             klogv(\textcolor{stringliteral}{"{}Invalid Command"{}});}
+\DoxyCodeLine{554         \}}
+\DoxyCodeLine{555         }
+\DoxyCodeLine{556     sys\_req(IDLE, DEFAULT\_DEVICE, NULL, NULL);}
+\DoxyCodeLine{557     \}}
+\DoxyCodeLine{558     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{559     \textcolor{comment}{//process the command}}
+\DoxyCodeLine{560     \textcolor{comment}{//see if quit was entered}}
+\DoxyCodeLine{561 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{comhand_8h_a2e1fc84515d116c4f6dbe88d321abf65}\label{comhand_8h_a2e1fc84515d116c4f6dbe88d321abf65}} 
+\index{comhand.h@{comhand.h}!iToBcd@{iToBcd}}
+\index{iToBcd@{iToBcd}!comhand.h@{comhand.h}}
+\doxysubsubsection{\texorpdfstring{iToBcd()}{iToBcd()}}
+{\footnotesize\ttfamily unsigned char i\+To\+Bcd (\begin{DoxyParamCaption}\item[{int}]{int\+Val }\end{DoxyParamCaption})}
+
+Procedure..\+: i\+To\+Bcd~\newline
+Description..\+: takes an int, splits it into two halves where one is divided by 10 and shifted left by 4 bits and the other is modulo\textquotesingle{}ed by 10, and returns them added together 
+
+Definition at line 583 of file comhand.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{583                                 \{}
+\DoxyCodeLine{584     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} temp3 =  (intVal/10) << 4 ;}
+\DoxyCodeLine{585     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} temp4 = intVal \% 10;}
+\DoxyCodeLine{586     \textcolor{comment}{/*char stringM[3];}}
+\DoxyCodeLine{587 \textcolor{comment}{    stringM[0]=temp4;}}
+\DoxyCodeLine{588 \textcolor{comment}{    stringM[1]=temp3;}}
+\DoxyCodeLine{589 \textcolor{comment}{    stringM[2]='\(\backslash\)0';}}
+\DoxyCodeLine{590 \textcolor{comment}{    serial\_println(stringM);*/}}
+\DoxyCodeLine{591     \textcolor{keywordflow}{return} temp3+temp4;}
+\DoxyCodeLine{592 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{comhand_8h_a35becddc712bb8173f026a72960bb90f}\label{comhand_8h_a35becddc712bb8173f026a72960bb90f}} 
+\index{comhand.h@{comhand.h}!parameter@{parameter}}
+\index{parameter@{parameter}!comhand.h@{comhand.h}}
+\doxysubsubsection{\texorpdfstring{parameter()}{parameter()}}
+{\footnotesize\ttfamily char$\ast$ parameter (\begin{DoxyParamCaption}\item[{char $\ast$}]{cmd\+Buffer }\end{DoxyParamCaption})}
+
+Procedure..\+: parameter Description..\+: take the input from the user and parses out the paramaters from the query ex. query =$>$/settime = 12/34/25; parameter =$>$12/34/25 
+
+Definition at line 42 of file comhand.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{42                                  \{}
+\DoxyCodeLine{43     \textcolor{keywordtype}{int} flag = 0;}
+\DoxyCodeLine{44     cmdBuffer = cmdBuffer + strlen(cmdBuffer)+1; \textcolor{comment}{// takes the length of the current strtok and adds it to the index of the buffer then adds 1 to get to the '=' part of the query}}
+\DoxyCodeLine{45     \textcolor{keywordtype}{int} i = 0; \textcolor{comment}{// index for loop size}}
+\DoxyCodeLine{46     \textcolor{keywordtype}{int} paramIndex = 0;  \textcolor{comment}{// parameter index}}
+\DoxyCodeLine{47     \textcolor{keywordtype}{char} \mbox{\hyperlink{structparam}{param}}[50]; \textcolor{comment}{// parameter string}}
+\DoxyCodeLine{48     memset(\mbox{\hyperlink{structparam}{param}}, \textcolor{charliteral}{'\(\backslash\)0'}, 50); \textcolor{comment}{// resets the memory for params}}
+\DoxyCodeLine{49     \textcolor{keywordtype}{char}* returnValue;}
+\DoxyCodeLine{50     \textcolor{keywordflow}{if} ((\textcolor{keywordtype}{char})*cmdBuffer != \textcolor{charliteral}{'='})\{ \textcolor{comment}{// if a '=' is not used in the query, exits and throws a syntax error}}
+\DoxyCodeLine{51             klogv(\textcolor{stringliteral}{"{}syntax error"{}});}
+\DoxyCodeLine{52             returnValue = \mbox{\hyperlink{structparam}{param}};}
+\DoxyCodeLine{53             \textcolor{keywordflow}{return} returnValue;}
+\DoxyCodeLine{54         \}}
+\DoxyCodeLine{55         cmdBuffer = cmdBuffer+1; \textcolor{comment}{// else there is a '=' so the buffer index moves by 1 forward where there should be a space before the parameters exist}}
+\DoxyCodeLine{56     \textcolor{keywordflow}{if} ((\textcolor{keywordtype}{char})*cmdBuffer == \textcolor{charliteral}{' '})\{ \textcolor{comment}{// checks for a ' ' (space) after the '='}}
+\DoxyCodeLine{57             cmdBuffer = cmdBuffer+1; \textcolor{comment}{// moves the index forward to the parameter}}
+\DoxyCodeLine{58         \}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60     \textcolor{keywordflow}{while}(i<100)\{}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62         \textcolor{keywordflow}{if} (*cmdBuffer == \textcolor{charliteral}{';'})\{ \textcolor{comment}{// if the ';' is detected breaks out of the while loop}}
+\DoxyCodeLine{63             flag=1;}
+\DoxyCodeLine{64             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{65         \}}
+\DoxyCodeLine{66         \textcolor{keywordflow}{else}\{ \textcolor{comment}{// else every character is added to the param string}}
+\DoxyCodeLine{67             \mbox{\hyperlink{structparam}{param}}[paramIndex] = *cmdBuffer;}
+\DoxyCodeLine{68             paramIndex++;}
+\DoxyCodeLine{69         \}}
+\DoxyCodeLine{70         cmdBuffer = cmdBuffer+1; \textcolor{comment}{// moves the buffer index forward by 1}}
+\DoxyCodeLine{71         i++;}
+\DoxyCodeLine{72     \}}
+\DoxyCodeLine{73     \textcolor{keywordflow}{if}(flag==0)\{}
+\DoxyCodeLine{74         klogv(\textcolor{stringliteral}{"{}Syntax error"{}});}
+\DoxyCodeLine{75         returnValue = \textcolor{stringliteral}{"{} "{}};}
+\DoxyCodeLine{76         \textcolor{keywordflow}{return} returnValue;}
+\DoxyCodeLine{77     \}}
+\DoxyCodeLine{78     returnValue = \mbox{\hyperlink{structparam}{param}};}
+\DoxyCodeLine{79         }
+\DoxyCodeLine{80         cmdBuffer = 0;}
+\DoxyCodeLine{81         \textcolor{keywordflow}{return} returnValue;}
+\DoxyCodeLine{82    \}}
+
+\end{DoxyCode}

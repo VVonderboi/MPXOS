@@ -1,0 +1,203 @@
+\hypertarget{showpcbs_8h}{}\doxysection{mpx\+\_\+core/modules/showpcbs.h File Reference}
+\label{showpcbs_8h}\index{mpx\_core/modules/showpcbs.h@{mpx\_core/modules/showpcbs.h}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{showpcbs_8h_a31dafb73d32e508d7b4192692167bff8}{Show\+PCB}} (char $\ast$name)
+\item 
+void \mbox{\hyperlink{showpcbs_8h_a378d05ceba8409dae4159482fbf33b4f}{Show\+Ready}} ()
+\item 
+void \mbox{\hyperlink{showpcbs_8h_a2011b13f6256e3418db98b24aa59195b}{Show\+Blocked}} ()
+\item 
+void \mbox{\hyperlink{showpcbs_8h_af2b6bb6afc477fdc5c5c410674b27040}{Show\+All}} ()
+\item 
+void \mbox{\hyperlink{showpcbs_8h_a6b9ce34535220022b94c92f29d11d036}{check\+Priority}} (int pr)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{showpcbs_8h_a6b9ce34535220022b94c92f29d11d036}\label{showpcbs_8h_a6b9ce34535220022b94c92f29d11d036}} 
+\index{showpcbs.h@{showpcbs.h}!checkPriority@{checkPriority}}
+\index{checkPriority@{checkPriority}!showpcbs.h@{showpcbs.h}}
+\doxysubsubsection{\texorpdfstring{checkPriority()}{checkPriority()}}
+{\footnotesize\ttfamily void check\+Priority (\begin{DoxyParamCaption}\item[{int}]{pr }\end{DoxyParamCaption})}
+
+Procedure..\+: Check priority Description..\+: checks the priority of a pcb prints out priority in showpcb 
+
+Definition at line 124 of file showpcbs.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{124                           \{}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{126 \textcolor{keywordflow}{switch} (pr)}
+\DoxyCodeLine{127 \{}
+\DoxyCodeLine{128     \textcolor{keywordflow}{case} 0: printStringln(\textcolor{stringliteral}{"{}0"{}});}
+\DoxyCodeLine{129         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{130     \textcolor{keywordflow}{case} 1: printStringln(\textcolor{stringliteral}{"{}1"{}});}
+\DoxyCodeLine{131         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{132     \textcolor{keywordflow}{case} 2: printStringln(\textcolor{stringliteral}{"{}2"{}});}
+\DoxyCodeLine{133         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{134     \textcolor{keywordflow}{case} 3: printStringln(\textcolor{stringliteral}{"{}3"{}});}
+\DoxyCodeLine{135         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{136     \textcolor{keywordflow}{case} 4: printStringln(\textcolor{stringliteral}{"{}4"{}});}
+\DoxyCodeLine{137         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{138     \textcolor{keywordflow}{case} 5: printStringln(\textcolor{stringliteral}{"{}5"{}});}
+\DoxyCodeLine{139         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{140     \textcolor{keywordflow}{case} 6: printStringln(\textcolor{stringliteral}{"{}6"{}});}
+\DoxyCodeLine{141         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{142     \textcolor{keywordflow}{case} 7: printStringln(\textcolor{stringliteral}{"{}7"{}});}
+\DoxyCodeLine{143         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{144     \textcolor{keywordflow}{case} 8: printStringln(\textcolor{stringliteral}{"{}8"{}});}
+\DoxyCodeLine{145         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{146     \textcolor{keywordflow}{case} 9: printStringln(\textcolor{stringliteral}{"{}9"{}});}
+\DoxyCodeLine{147         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{148     \textcolor{keywordflow}{default}: \textcolor{keywordflow}{break}; \textcolor{comment}{// code to be executed if n doesn't match any cases}}
+\DoxyCodeLine{149 \}}
+\DoxyCodeLine{150 \textcolor{keywordflow}{return};}
+\DoxyCodeLine{151 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{showpcbs_8h_af2b6bb6afc477fdc5c5c410674b27040}\label{showpcbs_8h_af2b6bb6afc477fdc5c5c410674b27040}} 
+\index{showpcbs.h@{showpcbs.h}!ShowAll@{ShowAll}}
+\index{ShowAll@{ShowAll}!showpcbs.h@{showpcbs.h}}
+\doxysubsubsection{\texorpdfstring{ShowAll()}{ShowAll()}}
+{\footnotesize\ttfamily void Show\+All (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Procedure..\+: Show\+All Description..\+: Displays the name, class, state, suspended status and priority for both ready and blocked queues. 
+
+Definition at line 109 of file showpcbs.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{109               \{}
+\DoxyCodeLine{110     printStringln(\textcolor{stringliteral}{"{}Blocked Queue"{}});}
+\DoxyCodeLine{111     printStringln(\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{112     \mbox{\hyperlink{showpcbs_8h_a2011b13f6256e3418db98b24aa59195b}{ShowBlocked}}();}
+\DoxyCodeLine{113     printStringln(\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{114     printStringln(\textcolor{stringliteral}{"{}Ready Queue"{}});}
+\DoxyCodeLine{115     printStringln(\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{116     \mbox{\hyperlink{showpcbs_8h_a378d05ceba8409dae4159482fbf33b4f}{ShowReady}}();}
+\DoxyCodeLine{117     printStringln(\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{118 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{showpcbs_8h_a2011b13f6256e3418db98b24aa59195b}\label{showpcbs_8h_a2011b13f6256e3418db98b24aa59195b}} 
+\index{showpcbs.h@{showpcbs.h}!ShowBlocked@{ShowBlocked}}
+\index{ShowBlocked@{ShowBlocked}!showpcbs.h@{showpcbs.h}}
+\doxysubsubsection{\texorpdfstring{ShowBlocked()}{ShowBlocked()}}
+{\footnotesize\ttfamily void Show\+Blocked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Procedure..\+: Show\+Blocked Description..\+: Displays the name, class, state, suspended status and priority for the whole blocked queue. 
+
+Definition at line 92 of file showpcbs.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{92                   \{}
+\DoxyCodeLine{93     \mbox{\hyperlink{structqueue}{queue}}* Blocked = (\mbox{\hyperlink{structqueue}{queue}}*) \mbox{\hyperlink{pcb_8h_a56ecb7e0ec71bfd017cdb7acbc44c1b5}{GetBlockedQ}}();}
+\DoxyCodeLine{94     \mbox{\hyperlink{structPCB}{PCB}}* currentPCB = Blocked-\/>head;}
+\DoxyCodeLine{95     }
+\DoxyCodeLine{96         \textcolor{keywordflow}{if}(Blocked-\/>count!=0)\{}
+\DoxyCodeLine{97      }
+\DoxyCodeLine{98             \textcolor{keywordflow}{while}(currentPCB!=NULL)\{}
+\DoxyCodeLine{99                 \mbox{\hyperlink{showpcbs_8h_a31dafb73d32e508d7b4192692167bff8}{ShowPCB}}(currentPCB-\/>processName);}
+\DoxyCodeLine{100             currentPCB=currentPCB-\/>nextPCB;}
+\DoxyCodeLine{101             \}}
+\DoxyCodeLine{102         \}}
+\DoxyCodeLine{103 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{showpcbs_8h_a31dafb73d32e508d7b4192692167bff8}\label{showpcbs_8h_a31dafb73d32e508d7b4192692167bff8}} 
+\index{showpcbs.h@{showpcbs.h}!ShowPCB@{ShowPCB}}
+\index{ShowPCB@{ShowPCB}!showpcbs.h@{showpcbs.h}}
+\doxysubsubsection{\texorpdfstring{ShowPCB()}{ShowPCB()}}
+{\footnotesize\ttfamily void Show\+PCB (\begin{DoxyParamCaption}\item[{char $\ast$}]{name }\end{DoxyParamCaption})}
+
+Procedure..\+: Show\+PCB Description..\+: Displays the name, class, state, suspended status and priority for a given process name. 
+
+Definition at line 17 of file showpcbs.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{17                         \{}
+\DoxyCodeLine{18     \mbox{\hyperlink{structPCB}{PCB}}* process = \mbox{\hyperlink{pcb_8h_ae4562089d23760f4f92aabb94fe77dad}{FindPCB}}(name);}
+\DoxyCodeLine{19     \textcolor{keywordflow}{if}(process==NULL)\{}
+\DoxyCodeLine{20         klogv(\textcolor{stringliteral}{"{}PCB does not exist"{}});}
+\DoxyCodeLine{21     \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{22         \textcolor{comment}{//serial\_println(process-\/>processName);}}
+\DoxyCodeLine{23         \textcolor{comment}{//add other things once printString is sorted}}
+\DoxyCodeLine{24         printString(\textcolor{stringliteral}{"{}Name: "{}});}
+\DoxyCodeLine{25         \textcolor{keywordtype}{char}* pname= process-\/>processName;}
+\DoxyCodeLine{26         printStringln(pname);}
+\DoxyCodeLine{27         }
+\DoxyCodeLine{28         }
+\DoxyCodeLine{29         printString(\textcolor{stringliteral}{"{}Class: "{}});}
+\DoxyCodeLine{30         \textcolor{keywordflow}{if}(process-\/>processClass == 0)\{}
+\DoxyCodeLine{31         printStringln(\textcolor{stringliteral}{"{}0 Application"{}});}
+\DoxyCodeLine{32         \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(process-\/>processClass == 1) \{}
+\DoxyCodeLine{33         printStringln(\textcolor{stringliteral}{"{}1 Sys Process"{}});}
+\DoxyCodeLine{34         \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{35         printStringln(\textcolor{stringliteral}{"{}invalid class code"{}});}
+\DoxyCodeLine{36         \}}
+\DoxyCodeLine{37         }
+\DoxyCodeLine{38         }
+\DoxyCodeLine{39         printString(\textcolor{stringliteral}{"{}Priority: "{}});}
+\DoxyCodeLine{40         \textcolor{keywordtype}{int} ipri = process-\/>priority;}
+\DoxyCodeLine{41         \mbox{\hyperlink{showpcbs_8h_a6b9ce34535220022b94c92f29d11d036}{checkPriority}}(ipri);}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44         printString(\textcolor{stringliteral}{"{}State: "{}});}
+\DoxyCodeLine{45         \textcolor{keywordflow}{if}(process-\/>state == 0)\{}
+\DoxyCodeLine{46         printStringln(\textcolor{stringliteral}{"{}0 Blocked"{}});}
+\DoxyCodeLine{47         \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(process-\/>state == 1) \{}
+\DoxyCodeLine{48         printStringln(\textcolor{stringliteral}{"{}1 Ready"{}});}
+\DoxyCodeLine{49         \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{50         printStringln(\textcolor{stringliteral}{"{}invalid state code"{}});}
+\DoxyCodeLine{51         \}}
+\DoxyCodeLine{52         }
+\DoxyCodeLine{53         }
+\DoxyCodeLine{54         printString(\textcolor{stringliteral}{"{}Suspend status: "{}});}
+\DoxyCodeLine{55         \textcolor{keywordflow}{if}(process-\/>suspended == 0)\{}
+\DoxyCodeLine{56         printStringln(\textcolor{stringliteral}{"{}Not suspended"{}});}
+\DoxyCodeLine{57         \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(process-\/>suspended == 1) \{}
+\DoxyCodeLine{58         printStringln(\textcolor{stringliteral}{"{}Suspended"{}});}
+\DoxyCodeLine{59         \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{60         printStringln(\textcolor{stringliteral}{"{}invalid suspension code"{}});}
+\DoxyCodeLine{61         \}}
+\DoxyCodeLine{62         }
+\DoxyCodeLine{63         printStringln(\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{64         }
+\DoxyCodeLine{65         }
+\DoxyCodeLine{66     \}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{showpcbs_8h_a378d05ceba8409dae4159482fbf33b4f}\label{showpcbs_8h_a378d05ceba8409dae4159482fbf33b4f}} 
+\index{showpcbs.h@{showpcbs.h}!ShowReady@{ShowReady}}
+\index{ShowReady@{ShowReady}!showpcbs.h@{showpcbs.h}}
+\doxysubsubsection{\texorpdfstring{ShowReady()}{ShowReady()}}
+{\footnotesize\ttfamily void Show\+Ready (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Procedure..\+: Show\+Ready Description..\+: Displays the name, class, state, suspended status and priority for the whole Ready queue 
+
+Definition at line 74 of file showpcbs.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{74                 \{}
+\DoxyCodeLine{75     \mbox{\hyperlink{structqueue}{queue}}* Ready = (\mbox{\hyperlink{structqueue}{queue}}*) \mbox{\hyperlink{pcb_8h_a6054586e3275e1a21336e0620ee87d9c}{GetReadyQ}}();}
+\DoxyCodeLine{76     \mbox{\hyperlink{structPCB}{PCB}}* currentPCB = Ready-\/>head;}
+\DoxyCodeLine{77     }
+\DoxyCodeLine{78         \textcolor{keywordflow}{if}(Ready-\/>count!=0)\{}
+\DoxyCodeLine{79      }
+\DoxyCodeLine{80             \textcolor{keywordflow}{while}(currentPCB!=NULL)\{}
+\DoxyCodeLine{81                 \mbox{\hyperlink{showpcbs_8h_a31dafb73d32e508d7b4192692167bff8}{ShowPCB}}(currentPCB-\/>processName);}
+\DoxyCodeLine{82                 }
+\DoxyCodeLine{83             currentPCB=currentPCB-\/>nextPCB;}
+\DoxyCodeLine{84             \}}
+\DoxyCodeLine{85         \}}
+\DoxyCodeLine{86 \}}
+
+\end{DoxyCode}

@@ -1,0 +1,44 @@
+\hypertarget{deletepcb_8h}{}\doxysection{mpx\+\_\+core/modules/deletepcb.h File Reference}
+\label{deletepcb_8h}\index{mpx\_core/modules/deletepcb.h@{mpx\_core/modules/deletepcb.h}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{deletepcb_8h_aa3861a9f8ed74ec63ad8b73dba14693d}{delete\+PCB}} (char $\ast$name)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{deletepcb_8h_aa3861a9f8ed74ec63ad8b73dba14693d}\label{deletepcb_8h_aa3861a9f8ed74ec63ad8b73dba14693d}} 
+\index{deletepcb.h@{deletepcb.h}!deletePCB@{deletePCB}}
+\index{deletePCB@{deletePCB}!deletepcb.h@{deletepcb.h}}
+\doxysubsubsection{\texorpdfstring{deletePCB()}{deletePCB()}}
+{\footnotesize\ttfamily void delete\+PCB (\begin{DoxyParamCaption}\item[{char $\ast$}]{name }\end{DoxyParamCaption})}
+
+Name = deletepcb~\newline
+Query = /deletepcb = (parameter);~\newline
+Parameters\+: name (1-\/20 alphanumeric characters)~\newline
+Description\+: Deletes the \mbox{\hyperlink{structPCB}{PCB}} with the specified \mbox{\hyperlink{structPCB}{PCB}} if it exists. 
+
+Definition at line 16 of file deletepcb.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16                           \{}
+\DoxyCodeLine{17     \textcolor{keywordflow}{if} (strlen(name)>20 || strlen(name)==0)\{}
+\DoxyCodeLine{18         klogv(\textcolor{stringliteral}{"{}Not a valid request. Check name length"{}});}
+\DoxyCodeLine{19     \}}
+\DoxyCodeLine{20     \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{21         \mbox{\hyperlink{structPCB}{PCB}}* found = \mbox{\hyperlink{pcb_8h_ae4562089d23760f4f92aabb94fe77dad}{FindPCB}}(name);}
+\DoxyCodeLine{22         \textcolor{keywordflow}{if}(\mbox{\hyperlink{pcb_8h_ab8ca3c5c8c5667e7e0afc327ae3c79e2}{RemovePCB}}(found)==0)\{}
+\DoxyCodeLine{23             \textcolor{keywordtype}{int} result = \mbox{\hyperlink{pcb_8h_a41f2fd97eb5171a6ff3e54fd0d081dd5}{FreePCB}}(found);}
+\DoxyCodeLine{24             result = result+1;}
+\DoxyCodeLine{25         \}}
+\DoxyCodeLine{26         \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{27             klogv(\textcolor{stringliteral}{"{}PCB not found, please try with a different name."{}});}
+\DoxyCodeLine{28         \}}
+\DoxyCodeLine{29         }
+\DoxyCodeLine{30     \}}
+\DoxyCodeLine{31     }
+\DoxyCodeLine{32 \}}
+
+\end{DoxyCode}

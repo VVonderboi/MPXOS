@@ -1,0 +1,468 @@
+\hypertarget{pcb_8h}{}\doxysection{mpx\+\_\+core/modules/pcb.h File Reference}
+\label{pcb_8h}\index{mpx\_core/modules/pcb.h@{mpx\_core/modules/pcb.h}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structPCB}{PCB}}
+\item 
+struct \mbox{\hyperlink{structqueue}{queue}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{pcb_8h_a86b56be801a071f739ce359b56ae24fd}\label{pcb_8h_a86b56be801a071f739ce359b56ae24fd}} 
+typedef struct \mbox{\hyperlink{structPCB}{PCB}} {\bfseries PCB}
+\item 
+\mbox{\Hypertarget{pcb_8h_a092902733e164e20a40f08447ef1705a}\label{pcb_8h_a092902733e164e20a40f08447ef1705a}} 
+typedef struct \mbox{\hyperlink{structqueue}{queue}} {\bfseries queue}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{pcb_8h_ac8da963855e09bf929c085486f4a3b47}\label{pcb_8h_ac8da963855e09bf929c085486f4a3b47}} 
+int {\bfseries test} ()
+\item 
+void \mbox{\hyperlink{pcb_8h_aef4baa056afc1486b582aeb3857e1596}{insert\+PCB}} (\mbox{\hyperlink{structPCB}{PCB}} $\ast$PCBIn)
+\item 
+\mbox{\hyperlink{structPCB}{PCB}} $\ast$ \mbox{\hyperlink{pcb_8h_a20be2fb30796b01e859494fd79c07ab6}{Allocate\+PCB}} ()
+\item 
+int \mbox{\hyperlink{pcb_8h_a41f2fd97eb5171a6ff3e54fd0d081dd5}{Free\+PCB}} (\mbox{\hyperlink{structPCB}{PCB}} $\ast$free\+This\+PCB)
+\item 
+\mbox{\hyperlink{structPCB}{PCB}} $\ast$ \mbox{\hyperlink{pcb_8h_a0f0303546dd916fa3658ecb1d71b6af6}{Setup\+PCB}} (char $\ast$name, int class, int priority)
+\item 
+\mbox{\hyperlink{structPCB}{PCB}} $\ast$ \mbox{\hyperlink{pcb_8h_ae4562089d23760f4f92aabb94fe77dad}{Find\+PCB}} (char $\ast$name)
+\item 
+int \mbox{\hyperlink{pcb_8h_ab8ca3c5c8c5667e7e0afc327ae3c79e2}{Remove\+PCB}} (\mbox{\hyperlink{structPCB}{PCB}} $\ast$remove\+This\+PCB)
+\item 
+void \mbox{\hyperlink{pcb_8h_ab6185470b8d1a58b04cba91490ea022b}{Init\+PCB}} ()
+\item 
+\mbox{\hyperlink{structqueue}{queue}} $\ast$ \mbox{\hyperlink{pcb_8h_a6054586e3275e1a21336e0620ee87d9c}{Get\+ReadyQ}} ()
+\item 
+\mbox{\hyperlink{structqueue}{queue}} $\ast$ \mbox{\hyperlink{pcb_8h_a56ecb7e0ec71bfd017cdb7acbc44c1b5}{Get\+BlockedQ}} ()
+\item 
+int \mbox{\hyperlink{pcb_8h_a81699a9f8f5587a78ada0dca42a4abbb}{Block\+PCB}} (char $\ast$name)
+\item 
+int \mbox{\hyperlink{pcb_8h_a3e665b7767b4369f02c222e54e122c86}{Unblock\+PCB}} (char $\ast$name)
+\item 
+\mbox{\Hypertarget{pcb_8h_a9e36c88ff6cb42a60ca2921a8e377403}\label{pcb_8h_a9e36c88ff6cb42a60ca2921a8e377403}} 
+void {\bfseries end\+All} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{pcb_8h_a20be2fb30796b01e859494fd79c07ab6}\label{pcb_8h_a20be2fb30796b01e859494fd79c07ab6}} 
+\index{pcb.h@{pcb.h}!AllocatePCB@{AllocatePCB}}
+\index{AllocatePCB@{AllocatePCB}!pcb.h@{pcb.h}}
+\doxysubsubsection{\texorpdfstring{AllocatePCB()}{AllocatePCB()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structPCB}{PCB}}$\ast$ Allocate\+PCB (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Procedure..\+: \mbox{\hyperlink{pcb_8h_a20be2fb30796b01e859494fd79c07ab6}{Allocate\+PCB()}}; Description..\+: Allocates memory to a \mbox{\hyperlink{structPCB}{PCB}} 
+
+Definition at line 233 of file pcb.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{233                   \{}
+\DoxyCodeLine{234     }
+\DoxyCodeLine{235     \mbox{\hyperlink{structPCB}{PCB}}* newPCB = (\mbox{\hyperlink{structPCB}{PCB}}*) sys\_alloc\_mem(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structPCB}{PCB}})); }
+\DoxyCodeLine{236     }
+\DoxyCodeLine{237     \textcolor{keywordflow}{return} newPCB;}
+\DoxyCodeLine{238 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{pcb_8h_a81699a9f8f5587a78ada0dca42a4abbb}\label{pcb_8h_a81699a9f8f5587a78ada0dca42a4abbb}} 
+\index{pcb.h@{pcb.h}!BlockPCB@{BlockPCB}}
+\index{BlockPCB@{BlockPCB}!pcb.h@{pcb.h}}
+\doxysubsubsection{\texorpdfstring{BlockPCB()}{BlockPCB()}}
+{\footnotesize\ttfamily int Block\+PCB (\begin{DoxyParamCaption}\item[{char $\ast$}]{name }\end{DoxyParamCaption})}
+
+Procedure..\+: \mbox{\hyperlink{pcb_8h_a81699a9f8f5587a78ada0dca42a4abbb}{Block\+PCB()}}; Description..\+: Puts a \mbox{\hyperlink{structPCB}{PCB}} in the block queue 
+
+Definition at line 423 of file pcb.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{423                         \{}
+\DoxyCodeLine{424 }
+\DoxyCodeLine{425     \mbox{\hyperlink{structPCB}{PCB}}* blockChecker = \mbox{\hyperlink{pcb_8h_ae4562089d23760f4f92aabb94fe77dad}{FindPCB}}(name);}
+\DoxyCodeLine{426 }
+\DoxyCodeLine{427    }
+\DoxyCodeLine{428 }
+\DoxyCodeLine{429 }
+\DoxyCodeLine{430     \textcolor{comment}{//check if PCB name exists}}
+\DoxyCodeLine{431     \textcolor{keywordflow}{if} (blockChecker == NULL)\{}
+\DoxyCodeLine{432     \textcolor{keywordtype}{char}* nameval = \textcolor{stringliteral}{"{}Name invalid"{}};}
+\DoxyCodeLine{433         klogv(nameval);}
+\DoxyCodeLine{434         \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{435         \}}
+\DoxyCodeLine{436     \textcolor{comment}{//check if PCB is already in the blocked queue}}
+\DoxyCodeLine{437     \textcolor{comment}{//remove only in order to maintain the spacing}}
+\DoxyCodeLine{438     blockChecker-\/>state=0;}
+\DoxyCodeLine{439     \mbox{\hyperlink{pcb_8h_ab8ca3c5c8c5667e7e0afc327ae3c79e2}{RemovePCB}}(blockChecker);}
+\DoxyCodeLine{440     }
+\DoxyCodeLine{441     \mbox{\hyperlink{pcb_8h_aef4baa056afc1486b582aeb3857e1596}{insertPCB}}(blockChecker);}
+\DoxyCodeLine{442     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{443 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{pcb_8h_ae4562089d23760f4f92aabb94fe77dad}\label{pcb_8h_ae4562089d23760f4f92aabb94fe77dad}} 
+\index{pcb.h@{pcb.h}!FindPCB@{FindPCB}}
+\index{FindPCB@{FindPCB}!pcb.h@{pcb.h}}
+\doxysubsubsection{\texorpdfstring{FindPCB()}{FindPCB()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structPCB}{PCB}}$\ast$ Find\+PCB (\begin{DoxyParamCaption}\item[{char $\ast$}]{name }\end{DoxyParamCaption})}
+
+Procedure..\+: Find\+PCB Description..\+: Finds the \mbox{\hyperlink{structPCB}{PCB}} for the given name if it is in either queue and returns the \mbox{\hyperlink{structPCB}{PCB}}, returns null if it is not found. 
+
+Definition at line 271 of file pcb.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{271                         \{}
+\DoxyCodeLine{272     \mbox{\hyperlink{structPCB}{PCB}}* currentPCB = Blocked-\/>head;}
+\DoxyCodeLine{273     \textcolor{keywordflow}{if}(Blocked-\/>count!=0)\{}
+\DoxyCodeLine{274         }
+\DoxyCodeLine{275          \textcolor{keywordflow}{if}(strcmp(Blocked-\/>head-\/>processName, name)==0)\{}
+\DoxyCodeLine{276                 \textcolor{keywordflow}{return} currentPCB;}
+\DoxyCodeLine{277             \}}
+\DoxyCodeLine{278         }
+\DoxyCodeLine{279         \textcolor{keywordflow}{while}(currentPCB-\/>nextPCB!=NULL)\{}
+\DoxyCodeLine{280          \textcolor{keywordflow}{if}(strcmp(currentPCB-\/>nextPCB-\/>processName, name)==0)\{}
+\DoxyCodeLine{281                 \textcolor{keywordflow}{return} currentPCB-\/>nextPCB;}
+\DoxyCodeLine{282             \}}
+\DoxyCodeLine{283             currentPCB=currentPCB-\/>nextPCB;}
+\DoxyCodeLine{284         \}}
+\DoxyCodeLine{285     \}}
+\DoxyCodeLine{286     }
+\DoxyCodeLine{287     currentPCB = Ready-\/>head;}
+\DoxyCodeLine{288     \textcolor{keywordflow}{if}(Ready-\/>count!=0)\{}
+\DoxyCodeLine{289         \textcolor{keywordflow}{if}(strcmp(Ready-\/>head-\/>processName, name)==0)\{}
+\DoxyCodeLine{290             \textcolor{keywordflow}{return} currentPCB;}
+\DoxyCodeLine{291         \}}
+\DoxyCodeLine{292         \textcolor{keywordflow}{while}(currentPCB-\/>nextPCB!=NULL)\{}
+\DoxyCodeLine{293         \textcolor{keywordflow}{if}(strcmp(currentPCB-\/>nextPCB-\/>processName, name)==0)\{}
+\DoxyCodeLine{294             \textcolor{keywordflow}{return} currentPCB-\/>nextPCB;}
+\DoxyCodeLine{295         \}}
+\DoxyCodeLine{296         currentPCB=currentPCB-\/>nextPCB;}
+\DoxyCodeLine{297         \}}
+\DoxyCodeLine{298     \}}
+\DoxyCodeLine{299     }
+\DoxyCodeLine{300     }
+\DoxyCodeLine{301     \textcolor{keywordflow}{return} NULL;}
+\DoxyCodeLine{302 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{pcb_8h_a41f2fd97eb5171a6ff3e54fd0d081dd5}\label{pcb_8h_a41f2fd97eb5171a6ff3e54fd0d081dd5}} 
+\index{pcb.h@{pcb.h}!FreePCB@{FreePCB}}
+\index{FreePCB@{FreePCB}!pcb.h@{pcb.h}}
+\doxysubsubsection{\texorpdfstring{FreePCB()}{FreePCB()}}
+{\footnotesize\ttfamily int Free\+PCB (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structPCB}{PCB}} $\ast$}]{free\+This\+PCB }\end{DoxyParamCaption})}
+
+Procedure..\+: Free\+PCB Description..\+: Frees all memory associated with the given \mbox{\hyperlink{structPCB}{PCB}} 
+
+Definition at line 244 of file pcb.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{244                              \{ }
+\DoxyCodeLine{245     sys\_free\_mem(freeThisPCB);}
+\DoxyCodeLine{246     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{247 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{pcb_8h_a56ecb7e0ec71bfd017cdb7acbc44c1b5}\label{pcb_8h_a56ecb7e0ec71bfd017cdb7acbc44c1b5}} 
+\index{pcb.h@{pcb.h}!GetBlockedQ@{GetBlockedQ}}
+\index{GetBlockedQ@{GetBlockedQ}!pcb.h@{pcb.h}}
+\doxysubsubsection{\texorpdfstring{GetBlockedQ()}{GetBlockedQ()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structqueue}{queue}}$\ast$ Get\+BlockedQ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Procedure..\+: Get\+BlockedQ Description..\+: Passes the Blocked queue from \mbox{\hyperlink{pcb_8c_source}{pcb.\+c}} to other files for use there. 
+
+Definition at line 414 of file pcb.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{414                     \{}
+\DoxyCodeLine{415 \textcolor{keywordflow}{return} Blocked;}
+\DoxyCodeLine{416 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{pcb_8h_a6054586e3275e1a21336e0620ee87d9c}\label{pcb_8h_a6054586e3275e1a21336e0620ee87d9c}} 
+\index{pcb.h@{pcb.h}!GetReadyQ@{GetReadyQ}}
+\index{GetReadyQ@{GetReadyQ}!pcb.h@{pcb.h}}
+\doxysubsubsection{\texorpdfstring{GetReadyQ()}{GetReadyQ()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structqueue}{queue}}$\ast$ Get\+ReadyQ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Procedure..\+: Get\+ReadyQ Description..\+: Passes the Ready queue from \mbox{\hyperlink{pcb_8c_source}{pcb.\+c}} to other files for use there. 
+
+Definition at line 406 of file pcb.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{406                   \{}
+\DoxyCodeLine{407 \textcolor{keywordflow}{return} Ready;}
+\DoxyCodeLine{408 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{pcb_8h_ab6185470b8d1a58b04cba91490ea022b}\label{pcb_8h_ab6185470b8d1a58b04cba91490ea022b}} 
+\index{pcb.h@{pcb.h}!InitPCB@{InitPCB}}
+\index{InitPCB@{InitPCB}!pcb.h@{pcb.h}}
+\doxysubsubsection{\texorpdfstring{InitPCB()}{InitPCB()}}
+{\footnotesize\ttfamily void Init\+PCB (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Procedure..\+: Init\+PCB Description..\+: Allocates and initializes mempory for the two main queues. 
+
+Definition at line 388 of file pcb.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{388               \{}
+\DoxyCodeLine{389     Ready = (\mbox{\hyperlink{structqueue}{queue}}*) sys\_alloc\_mem(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structqueue}{queue}}));}
+\DoxyCodeLine{390     Ready-\/>head=NULL;}
+\DoxyCodeLine{391     Ready-\/>tail=NULL;}
+\DoxyCodeLine{392     Ready-\/>count=0;}
+\DoxyCodeLine{393     \textcolor{comment}{//set count to 0, head and tail to NULL}}
+\DoxyCodeLine{394         Blocked = (\mbox{\hyperlink{structqueue}{queue}}*) sys\_alloc\_mem(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structqueue}{queue}}));}
+\DoxyCodeLine{395         Blocked-\/>head=NULL;}
+\DoxyCodeLine{396     Blocked-\/>tail=NULL;}
+\DoxyCodeLine{397     Blocked-\/>count=0;}
+\DoxyCodeLine{398         }
+\DoxyCodeLine{399 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{pcb_8h_aef4baa056afc1486b582aeb3857e1596}\label{pcb_8h_aef4baa056afc1486b582aeb3857e1596}} 
+\index{pcb.h@{pcb.h}!insertPCB@{insertPCB}}
+\index{insertPCB@{insertPCB}!pcb.h@{pcb.h}}
+\doxysubsubsection{\texorpdfstring{insertPCB()}{insertPCB()}}
+{\footnotesize\ttfamily void insert\+PCB (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structPCB}{PCB}} $\ast$}]{insert\+This\+PCB }\end{DoxyParamCaption})}
+
+Procedure..\+: Insert\+PCB Description..\+: \mbox{\hyperlink{structPCB}{PCB}} into the appropriate queue. 
+
+Definition at line 163 of file pcb.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{163                           \{}
+\DoxyCodeLine{164     }
+\DoxyCodeLine{165     \textcolor{keywordflow}{if}(PCBIn-\/>state==0)\{ \textcolor{comment}{//0 for blocked}}
+\DoxyCodeLine{166         \textcolor{keywordflow}{if}(Blocked-\/>count==0)\{}
+\DoxyCodeLine{167             Blocked-\/>head=PCBIn;}
+\DoxyCodeLine{168             Blocked-\/>count++;}
+\DoxyCodeLine{169             Blocked-\/>tail=PCBIn;}
+\DoxyCodeLine{170         \}}
+\DoxyCodeLine{171         \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{172             Blocked-\/>tail-\/>nextPCB=PCBIn;}
+\DoxyCodeLine{173             Blocked-\/>tail=PCBIn;}
+\DoxyCodeLine{174             Blocked-\/>count++;}
+\DoxyCodeLine{175         \}}
+\DoxyCodeLine{176     \}}
+\DoxyCodeLine{177     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(PCBIn-\/>state==1)\{ \textcolor{comment}{//should be 1 to state ready; priority sort}}
+\DoxyCodeLine{178         \textcolor{keywordflow}{if}(Ready-\/>count==0)\{}
+\DoxyCodeLine{179             Ready-\/>head=PCBIn;}
+\DoxyCodeLine{180             Ready-\/>count++;}
+\DoxyCodeLine{181             Ready-\/>tail=PCBIn;}
+\DoxyCodeLine{182         \}}
+\DoxyCodeLine{183         }
+\DoxyCodeLine{184         \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{185             \textcolor{keywordflow}{if}(PCBIn-\/>priority>Ready-\/>head-\/>priority)\{}
+\DoxyCodeLine{186                 PCBIn-\/>nextPCB=Ready-\/>head;}
+\DoxyCodeLine{187                 Ready-\/>head=PCBIn;\textcolor{comment}{//new code, updated head placement}}
+\DoxyCodeLine{188                 Ready-\/>count++;}
+\DoxyCodeLine{189             \}}
+\DoxyCodeLine{190             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(Ready-\/>count==1 \&\& PCBIn-\/>priority <= Ready-\/>head-\/>priority)\{}
+\DoxyCodeLine{191                 Ready-\/>head-\/>nextPCB=PCBIn;}
+\DoxyCodeLine{192                 Ready-\/>tail=PCBIn;}
+\DoxyCodeLine{193                 Ready-\/>count++;}
+\DoxyCodeLine{194             \}}
+\DoxyCodeLine{195             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(Ready-\/>tail-\/>priority>=PCBIn-\/>priority)\{}
+\DoxyCodeLine{196                             Ready-\/>tail-\/>nextPCB=PCBIn;}
+\DoxyCodeLine{197                             Ready-\/>tail=PCBIn;}
+\DoxyCodeLine{198                             Ready-\/>count++;}
+\DoxyCodeLine{199             \}}
+\DoxyCodeLine{200             \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{201                 \mbox{\hyperlink{structPCB}{PCB}}* currentPCB = Ready-\/>head;}
+\DoxyCodeLine{202                 }
+\DoxyCodeLine{203                 \textcolor{keywordflow}{while}(currentPCB-\/>nextPCB!=NULL)\{}
+\DoxyCodeLine{204                     }
+\DoxyCodeLine{205                    \textcolor{keywordflow}{if}(currentPCB-\/>nextPCB-\/>priority<PCBIn-\/>priority)\{\textcolor{comment}{//checks if curentpcb's nextpcb's priority is less than the currentpcb's priority}}
+\DoxyCodeLine{206                    }
+\DoxyCodeLine{207                        \textcolor{comment}{//temp pointer for currentpcb next}}
+\DoxyCodeLine{208                        \textcolor{comment}{//currentpcb next to pcbin}}
+\DoxyCodeLine{209                        \textcolor{comment}{//pcbin next to }}
+\DoxyCodeLine{210                         \mbox{\hyperlink{structPCB}{PCB}}* tempPCB = currentPCB-\/>nextPCB;}
+\DoxyCodeLine{211                         currentPCB-\/>nextPCB=PCBIn;}
+\DoxyCodeLine{212                         PCBIn-\/>nextPCB=tempPCB;}
+\DoxyCodeLine{213                         Ready-\/>count++;}
+\DoxyCodeLine{214                         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{215                    \}}
+\DoxyCodeLine{216                    currentPCB=currentPCB-\/>nextPCB;}
+\DoxyCodeLine{217                    }
+\DoxyCodeLine{218                 \}}
+\DoxyCodeLine{219             \}}
+\DoxyCodeLine{220         \}}
+\DoxyCodeLine{221     \}}
+\DoxyCodeLine{222     \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{223         klogv(\textcolor{stringliteral}{"{}not proper states"{}});}
+\DoxyCodeLine{224     \}}
+\DoxyCodeLine{225     }
+\DoxyCodeLine{226     }
+\DoxyCodeLine{227 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{pcb_8h_ab8ca3c5c8c5667e7e0afc327ae3c79e2}\label{pcb_8h_ab8ca3c5c8c5667e7e0afc327ae3c79e2}} 
+\index{pcb.h@{pcb.h}!RemovePCB@{RemovePCB}}
+\index{RemovePCB@{RemovePCB}!pcb.h@{pcb.h}}
+\doxysubsubsection{\texorpdfstring{RemovePCB()}{RemovePCB()}}
+{\footnotesize\ttfamily int Remove\+PCB (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structPCB}{PCB}} $\ast$}]{remove\+This\+PCB }\end{DoxyParamCaption})}
+
+Procedure..\+: Remove\+PCB Description..\+: Will remove the \mbox{\hyperlink{structPCB}{PCB}} from the queue in which it is stored, does not free the memory of that \mbox{\hyperlink{structPCB}{PCB}} 
+
+Definition at line 308 of file pcb.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{308                                  \{}
+\DoxyCodeLine{309     \mbox{\hyperlink{structPCB}{PCB}}* currentPCB=Blocked-\/>head;}
+\DoxyCodeLine{310     }
+\DoxyCodeLine{311     \textcolor{keywordflow}{if}(Blocked-\/>count!=0)\{}
+\DoxyCodeLine{312         \textcolor{keywordflow}{if}(strcmp(currentPCB-\/>processName,removeThisPCB-\/>processName)==0)\{}
+\DoxyCodeLine{313             \textcolor{keywordflow}{if}(Blocked-\/>count==1)\{}
+\DoxyCodeLine{314                 Blocked-\/>head=NULL;}
+\DoxyCodeLine{315                 Blocked-\/>tail=NULL;}
+\DoxyCodeLine{316                 Blocked-\/>count-\/-\/;}
+\DoxyCodeLine{317                 removeThisPCB-\/>nextPCB=NULL;}
+\DoxyCodeLine{318                 \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{319             \}}
+\DoxyCodeLine{320             Blocked-\/>head=Blocked-\/>head-\/>nextPCB;}
+\DoxyCodeLine{321             Blocked-\/>count-\/-\/;}
+\DoxyCodeLine{322             removeThisPCB-\/>nextPCB=NULL;}
+\DoxyCodeLine{323             \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{324         \}}
+\DoxyCodeLine{325         \textcolor{keywordflow}{while}(currentPCB-\/>nextPCB!=NULL)\{}
+\DoxyCodeLine{326             \textcolor{keywordflow}{if}(strcmp(currentPCB-\/>nextPCB-\/>processName,removeThisPCB-\/>processName)==0)\{}
+\DoxyCodeLine{327                 \textcolor{keywordflow}{if}(currentPCB-\/>nextPCB-\/>nextPCB!=NULL)\{}
+\DoxyCodeLine{328                     currentPCB-\/>nextPCB=currentPCB-\/>nextPCB-\/>nextPCB;}
+\DoxyCodeLine{329                     Blocked-\/>count-\/-\/;}
+\DoxyCodeLine{330                     removeThisPCB-\/>nextPCB=NULL;}
+\DoxyCodeLine{331                     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{332                 \}}
+\DoxyCodeLine{333                 \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{334                     currentPCB-\/>nextPCB=NULL;}
+\DoxyCodeLine{335                     Blocked-\/>tail=currentPCB;}
+\DoxyCodeLine{336                     Blocked-\/>count-\/-\/;}
+\DoxyCodeLine{337                     removeThisPCB-\/>nextPCB=NULL;}
+\DoxyCodeLine{338                     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{339                 \}}
+\DoxyCodeLine{340             \}}
+\DoxyCodeLine{341             currentPCB=currentPCB-\/>nextPCB;}
+\DoxyCodeLine{342         \}}
+\DoxyCodeLine{343     \}}
+\DoxyCodeLine{344     }
+\DoxyCodeLine{345     currentPCB=Ready-\/>head;}
+\DoxyCodeLine{346     \textcolor{keywordflow}{if}(Ready-\/>count!=0)\{}
+\DoxyCodeLine{347         \textcolor{keywordflow}{if}(strcmp(currentPCB-\/>processName,removeThisPCB-\/>processName)==0)\{}
+\DoxyCodeLine{348             \textcolor{keywordflow}{if}(Ready-\/>count==1)\{}
+\DoxyCodeLine{349                 Ready-\/>head=NULL;}
+\DoxyCodeLine{350                 Ready-\/>tail=NULL;}
+\DoxyCodeLine{351                 Ready-\/>count-\/-\/;}
+\DoxyCodeLine{352                 removeThisPCB-\/>nextPCB=NULL;}
+\DoxyCodeLine{353                 \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{354             \}}
+\DoxyCodeLine{355             Ready-\/>head=Ready-\/>head-\/>nextPCB;}
+\DoxyCodeLine{356             Ready-\/>count-\/-\/;}
+\DoxyCodeLine{357             removeThisPCB-\/>nextPCB=NULL;}
+\DoxyCodeLine{358             \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{359         \}}
+\DoxyCodeLine{360         \textcolor{keywordflow}{while}(currentPCB-\/>nextPCB!=NULL)\{}
+\DoxyCodeLine{361             \textcolor{keywordflow}{if}(strcmp(currentPCB-\/>nextPCB-\/>processName,removeThisPCB-\/>processName)==0)\{}
+\DoxyCodeLine{362                 \textcolor{keywordflow}{if}(currentPCB-\/>nextPCB-\/>nextPCB!=NULL)\{}
+\DoxyCodeLine{363                     currentPCB-\/>nextPCB=currentPCB-\/>nextPCB-\/>nextPCB;}
+\DoxyCodeLine{364                     Ready-\/>count-\/-\/;}
+\DoxyCodeLine{365                     removeThisPCB-\/>nextPCB=NULL;}
+\DoxyCodeLine{366                     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{367                 \}}
+\DoxyCodeLine{368                 \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{369                     currentPCB-\/>nextPCB=NULL;}
+\DoxyCodeLine{370                     Ready-\/>tail=currentPCB;}
+\DoxyCodeLine{371                     Ready-\/>count-\/-\/;}
+\DoxyCodeLine{372                     removeThisPCB-\/>nextPCB=NULL;}
+\DoxyCodeLine{373                     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{374                 \}}
+\DoxyCodeLine{375             \}}
+\DoxyCodeLine{376             currentPCB=currentPCB-\/>nextPCB;}
+\DoxyCodeLine{377         \}}
+\DoxyCodeLine{378     \}}
+\DoxyCodeLine{379     }
+\DoxyCodeLine{380     }
+\DoxyCodeLine{381     \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{382 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{pcb_8h_a0f0303546dd916fa3658ecb1d71b6af6}\label{pcb_8h_a0f0303546dd916fa3658ecb1d71b6af6}} 
+\index{pcb.h@{pcb.h}!SetupPCB@{SetupPCB}}
+\index{SetupPCB@{SetupPCB}!pcb.h@{pcb.h}}
+\doxysubsubsection{\texorpdfstring{SetupPCB()}{SetupPCB()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structPCB}{PCB}}$\ast$ Setup\+PCB (\begin{DoxyParamCaption}\item[{char $\ast$}]{name,  }\item[{int}]{class,  }\item[{int}]{priority }\end{DoxyParamCaption})}
+
+Procedure..\+: Setup\+PCB Description..\+: Creates an empty \mbox{\hyperlink{structPCB}{PCB}} and initializes the \mbox{\hyperlink{structPCB}{PCB}} information. Sets state to ready (0) 
+
+Definition at line 253 of file pcb.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{253                                                   \{}
+\DoxyCodeLine{254     \textcolor{keywordtype}{char}* name2=\textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{255     strcpy(name2,name);}
+\DoxyCodeLine{256     \mbox{\hyperlink{structPCB}{PCB}}* newPCB = \mbox{\hyperlink{pcb_8h_a20be2fb30796b01e859494fd79c07ab6}{AllocatePCB}}();}
+\DoxyCodeLine{257     strcpy(newPCB-\/>processName,name2);}
+\DoxyCodeLine{258     newPCB-\/>processClass=\textcolor{keyword}{class};}
+\DoxyCodeLine{259     newPCB-\/>priority=priority;}
+\DoxyCodeLine{260     newPCB-\/>state=1;}
+\DoxyCodeLine{261     newPCB-\/>suspended=0;}
+\DoxyCodeLine{262     newPCB-\/>base=newPCB-\/>stack;}
+\DoxyCodeLine{263     newPCB-\/>top=newPCB-\/>base + 1024 -\/ \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct }\mbox{\hyperlink{structcontext}{context}});}
+\DoxyCodeLine{264     \textcolor{keywordflow}{return} newPCB;}
+\DoxyCodeLine{265 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{pcb_8h_a3e665b7767b4369f02c222e54e122c86}\label{pcb_8h_a3e665b7767b4369f02c222e54e122c86}} 
+\index{pcb.h@{pcb.h}!UnblockPCB@{UnblockPCB}}
+\index{UnblockPCB@{UnblockPCB}!pcb.h@{pcb.h}}
+\doxysubsubsection{\texorpdfstring{UnblockPCB()}{UnblockPCB()}}
+{\footnotesize\ttfamily int Unblock\+PCB (\begin{DoxyParamCaption}\item[{char $\ast$}]{name }\end{DoxyParamCaption})}
+
+Procedure..\+: unblock\+PCB(); Description..\+: Frees \mbox{\hyperlink{structPCB}{PCB}} in the block queue 
+
+Definition at line 450 of file pcb.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{450                           \{}
+\DoxyCodeLine{451   \textcolor{keywordtype}{int} returner = 0;}
+\DoxyCodeLine{452   \mbox{\hyperlink{structPCB}{PCB}}* unblockChecker = NULL;}
+\DoxyCodeLine{453 }
+\DoxyCodeLine{454  }
+\DoxyCodeLine{455     unblockChecker = \mbox{\hyperlink{pcb_8h_ae4562089d23760f4f92aabb94fe77dad}{FindPCB}}(name);}
+\DoxyCodeLine{456     \textcolor{comment}{//check to see if pcb name exists}}
+\DoxyCodeLine{457     \textcolor{keywordflow}{if}(unblockChecker != NULL)\{}
+\DoxyCodeLine{458       \textcolor{comment}{//check to see if pcb is already ready}}
+\DoxyCodeLine{459       \textcolor{keywordflow}{if}(unblockChecker-\/>state != 1)\{}
+\DoxyCodeLine{460     \textcolor{comment}{//need to use RemovePCB instead of Delete because Delete takes removes the allocated memory that the pcb uses}}
+\DoxyCodeLine{461         \mbox{\hyperlink{pcb_8h_ab8ca3c5c8c5667e7e0afc327ae3c79e2}{RemovePCB}}(unblockChecker);}
+\DoxyCodeLine{462         unblockChecker-\/>state=1;}
+\DoxyCodeLine{463         \mbox{\hyperlink{pcb_8h_aef4baa056afc1486b582aeb3857e1596}{insertPCB}}(unblockChecker);}
+\DoxyCodeLine{464       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{465         \textcolor{comment}{//pcb is already ready}}
+\DoxyCodeLine{466      }
+\DoxyCodeLine{467       \}}
+\DoxyCodeLine{468     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{469       \textcolor{comment}{//pcb does not exist}}
+\DoxyCodeLine{470    \textcolor{keywordtype}{char}* nameval = \textcolor{stringliteral}{"{}Name invalid"{}};}
+\DoxyCodeLine{471         klogv(nameval);}
+\DoxyCodeLine{472         \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{473     \}}
+\DoxyCodeLine{474 }
+\DoxyCodeLine{475     unblockChecker-\/>state=1;}
+\DoxyCodeLine{476   \textcolor{keywordflow}{return} returner;}
+\DoxyCodeLine{477 \}}
+
+\end{DoxyCode}

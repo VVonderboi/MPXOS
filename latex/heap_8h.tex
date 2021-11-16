@@ -1,0 +1,87 @@
+\hypertarget{heap_8h}{}\doxysection{mpx\+\_\+core/modules/heap.h File Reference}
+\label{heap_8h}\index{mpx\_core/modules/heap.h@{mpx\_core/modules/heap.h}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structCMCB}{CMCB}}
+\item 
+struct \mbox{\hyperlink{structmemlist}{memlist}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{heap_8h_a37e892ee192f8d6724e74e747f447e74}\label{heap_8h_a37e892ee192f8d6724e74e747f447e74}} 
+typedef struct \mbox{\hyperlink{structCMCB}{CMCB}} {\bfseries CMCB}
+\item 
+\mbox{\Hypertarget{heap_8h_ae5398b50c55ac4245975859c46f5afb9}\label{heap_8h_ae5398b50c55ac4245975859c46f5afb9}} 
+typedef struct \mbox{\hyperlink{structmemlist}{memlist}} {\bfseries memlist}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{heap_8h_aa9f1b1e44ac94141e2a52bbeb4ed2ec4}{initialize\+Heap}} (int size)
+\begin{DoxyCompactList}\small\item\em LMCBs are not used. ~\newline
+. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{heap_8h_a0af97075668bcbcac6903cebaae4213e}\label{heap_8h_a0af97075668bcbcac6903cebaae4213e}} 
+\mbox{\hyperlink{structCMCB}{CMCB}} $\ast$ {\bfseries setupC} (int type\+In, int size\+In, int address\+In)
+\item 
+\mbox{\Hypertarget{heap_8h_a4bfdcfb4e0fd4353dba0f77489cf5f26}\label{heap_8h_a4bfdcfb4e0fd4353dba0f77489cf5f26}} 
+void $\ast$ {\bfseries allocate\+Mem} (u32int size)
+\item 
+\mbox{\Hypertarget{heap_8h_a9ca9af181f28d93fa554c1d5e98fd45a}\label{heap_8h_a9ca9af181f28d93fa554c1d5e98fd45a}} 
+int {\bfseries free\+Mem} (void $\ast$ptr)
+\item 
+\mbox{\Hypertarget{heap_8h_a5f9a10e75c6f7b96600a4f0322d7c4e1}\label{heap_8h_a5f9a10e75c6f7b96600a4f0322d7c4e1}} 
+void {\bfseries show\+Allocated} ()
+\item 
+\mbox{\Hypertarget{heap_8h_aed029a6dc15ae2bd65393fa587498afa}\label{heap_8h_aed029a6dc15ae2bd65393fa587498afa}} 
+void {\bfseries show\+Freed} ()
+\item 
+\mbox{\Hypertarget{heap_8h_ab84bd3554f8a0c6dbc675a672586e69d}\label{heap_8h_ab84bd3554f8a0c6dbc675a672586e69d}} 
+void {\bfseries show\+All} ()
+\item 
+\mbox{\Hypertarget{heap_8h_a653c98c68c558505b75b04c44b7c838e}\label{heap_8h_a653c98c68c558505b75b04c44b7c838e}} 
+int {\bfseries is\+Empty} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{heap_8h_aa9f1b1e44ac94141e2a52bbeb4ed2ec4}\label{heap_8h_aa9f1b1e44ac94141e2a52bbeb4ed2ec4}} 
+\index{heap.h@{heap.h}!initializeHeap@{initializeHeap}}
+\index{initializeHeap@{initializeHeap}!heap.h@{heap.h}}
+\doxysubsubsection{\texorpdfstring{initializeHeap()}{initializeHeap()}}
+{\footnotesize\ttfamily int initialize\+Heap (\begin{DoxyParamCaption}\item[{int}]{size }\end{DoxyParamCaption})}
+
+
+
+LMCBs are not used. ~\newline
+. 
+
+The data structure we use is a doubly linked list that contains complete memory control blocks that make up the heap.~\newline
+We only use one doubly linked list to represent the allocated and freed CMCBs.~\newline
+When memory is allocated a new allocated \mbox{\hyperlink{structCMCB}{CMCB}} is created and becomes the old free blocks next \mbox{\hyperlink{structCMCB}{CMCB}}. ~\newline
+{\bfseries{Merging}} {\bfseries{Procedure}} ~\newline
+Check the current \mbox{\hyperlink{structCMCB}{CMCB}} that is going to be freed next to see if the \mbox{\hyperlink{structCMCB}{CMCB}} is free. If the \mbox{\hyperlink{structCMCB}{CMCB}} is free then merge.~\newline
+Check the current \mbox{\hyperlink{structCMCB}{CMCB}} that is going to be freed previous to see if the next \mbox{\hyperlink{structCMCB}{CMCB}} is free if so merge.~\newline
+In conclusion, check down if \mbox{\hyperlink{structCMCB}{CMCB}} is free then merge, then check up if \mbox{\hyperlink{structCMCB}{CMCB}} is free then merge also.~\newline
+ 
+
+Definition at line 39 of file heap.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{39                             \{}
+\DoxyCodeLine{40     globalAddr = kmalloc(size+\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structCMCB}{CMCB}})+\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structmemlist}{memlist}}));  \textcolor{comment}{//**}}
+\DoxyCodeLine{41     newMem=(\mbox{\hyperlink{structmemlist}{memlist}}*) globalAddr;}
+\DoxyCodeLine{42     \mbox{\hyperlink{structCMCB}{CMCB}}* newCMCB= (\mbox{\hyperlink{structCMCB}{CMCB}}*) (globalAddr + \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structmemlist}{memlist}}));}
+\DoxyCodeLine{43     newCMCB-\/>type=0;}
+\DoxyCodeLine{44     newCMCB-\/>size=size;}
+\DoxyCodeLine{45     newCMCB-\/>beginningAddress=globalAddr+\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structCMCB}{CMCB}})+\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structmemlist}{memlist}});}
+\DoxyCodeLine{46     newCMCB-\/>nextCMCB=NULL;}
+\DoxyCodeLine{47     newCMCB-\/>prevCMCB=NULL;}
+\DoxyCodeLine{48     newMem-\/>head=newCMCB;}
+\DoxyCodeLine{49     newMem-\/>tail=newCMCB;}
+\DoxyCodeLine{50     \textcolor{keywordflow}{return} size;}
+\DoxyCodeLine{51 \}}
+
+\end{DoxyCode}

@@ -1,0 +1,121 @@
+\hypertarget{time_8h}{}\doxysection{mpx\+\_\+core/modules/time.h File Reference}
+\label{time_8h}\index{mpx\_core/modules/time.h@{mpx\_core/modules/time.h}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{time_8h_ad4d17ee3c0537762f3447d1755479f3d}{set\+Time}} (char $\ast$time)
+\item 
+void \mbox{\hyperlink{time_8h_a1c7c164fd3c7dea7004ece3c6251fc94}{get\+Time}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{time_8h_a1c7c164fd3c7dea7004ece3c6251fc94}\label{time_8h_a1c7c164fd3c7dea7004ece3c6251fc94}} 
+\index{time.h@{time.h}!getTime@{getTime}}
+\index{getTime@{getTime}!time.h@{time.h}}
+\doxysubsubsection{\texorpdfstring{getTime()}{getTime()}}
+{\footnotesize\ttfamily void get\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+The get\+Time function alllows the user to get the time from the console.
+
+Name = get\+Time~\newline
+Query = /get\+Time;~\newline
+Parameters\+: N/A~\newline
+Description\+: Returns the time in string form. 
+
+Definition at line 72 of file time.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{72               \{}
+\DoxyCodeLine{73     }
+\DoxyCodeLine{74     outb(0x70, 0x04);}
+\DoxyCodeLine{75     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} hourPrint =inb(0x71);     }
+\DoxyCodeLine{76     printString(\textcolor{stringliteral}{"{}The time is "{}});}
+\DoxyCodeLine{77     \mbox{\hyperlink{comhand_8h_af2e3fc21c963c4dc2c6b8bc7139e2fb1}{bcdToI}}(hourPrint);}
+\DoxyCodeLine{78     printString(\textcolor{stringliteral}{"{}:"{}});}
+\DoxyCodeLine{79     \textcolor{comment}{//printString("{}:"{});}}
+\DoxyCodeLine{80     }
+\DoxyCodeLine{81     outb(0x070, 0x02);}
+\DoxyCodeLine{82     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} minutePrint =inb(0x71);}
+\DoxyCodeLine{83     \mbox{\hyperlink{comhand_8h_af2e3fc21c963c4dc2c6b8bc7139e2fb1}{bcdToI}}(minutePrint);}
+\DoxyCodeLine{84     printString(\textcolor{stringliteral}{"{}:"{}});}
+\DoxyCodeLine{85     \textcolor{comment}{//printString("{}:"{});}}
+\DoxyCodeLine{86     }
+\DoxyCodeLine{87     outb(0x70, 0x00);}
+\DoxyCodeLine{88     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} secondPrint =inb(0x71);}
+\DoxyCodeLine{89     \mbox{\hyperlink{comhand_8h_af2e3fc21c963c4dc2c6b8bc7139e2fb1}{bcdToI}}(secondPrint);}
+\DoxyCodeLine{90     printStringln(\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{91     \textcolor{comment}{//printStringln("{} "{});}}
+\DoxyCodeLine{92     }
+\DoxyCodeLine{93 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{time_8h_ad4d17ee3c0537762f3447d1755479f3d}\label{time_8h_ad4d17ee3c0537762f3447d1755479f3d}} 
+\index{time.h@{time.h}!setTime@{setTime}}
+\index{setTime@{setTime}!time.h@{time.h}}
+\doxysubsubsection{\texorpdfstring{setTime()}{setTime()}}
+{\footnotesize\ttfamily void set\+Time (\begin{DoxyParamCaption}\item[{char $\ast$}]{time }\end{DoxyParamCaption})}
+
+The set\+Time function allows the user to set the time for the console.
+
+Name = set\+Time~\newline
+Query = /set\+Time = (parameter);~\newline
+Parameters\+: hours\+:minutes\+:seconds (xx/yy/zz)~\newline
+Description\+: Sets the time based on the inputted string. 
+
+Definition at line 16 of file time.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16                          \{}
+\DoxyCodeLine{17     cli();}
+\DoxyCodeLine{18     }
+\DoxyCodeLine{19     \textcolor{keywordtype}{char} timeCopy[strlen(time)];}
+\DoxyCodeLine{20     strcpy(timeCopy,time);}
+\DoxyCodeLine{21     }
+\DoxyCodeLine{22     }
+\DoxyCodeLine{23     outb(0x70, 0x04);}
+\DoxyCodeLine{24     }
+\DoxyCodeLine{25     \textcolor{keywordtype}{char} hourArray[3];}
+\DoxyCodeLine{26     hourArray[0]=timeCopy[0];}
+\DoxyCodeLine{27     hourArray[1]=timeCopy[1];}
+\DoxyCodeLine{28     \textcolor{keywordtype}{int} hour = atoi(hourArray);}
+\DoxyCodeLine{29     }
+\DoxyCodeLine{30     \textcolor{keywordflow}{if} (hour > 23 || hour < 0)\{}
+\DoxyCodeLine{31         klogv(\textcolor{stringliteral}{"{}Not a valid hour, please enter between 0 and 23 inclusive."{}});}
+\DoxyCodeLine{32         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{33     \}}
+\DoxyCodeLine{34     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} temp6= \mbox{\hyperlink{comhand_8h_a2e1fc84515d116c4f6dbe88d321abf65}{iToBcd}}(hour);}
+\DoxyCodeLine{35     outb(0x71, temp6);}
+\DoxyCodeLine{36     }
+\DoxyCodeLine{37     outb(0x70, 0x02);}
+\DoxyCodeLine{38     \textcolor{keywordtype}{char} minuteArray[3];}
+\DoxyCodeLine{39     minuteArray[0]=timeCopy[3];}
+\DoxyCodeLine{40     minuteArray[1]=timeCopy[4];}
+\DoxyCodeLine{41     \textcolor{keywordtype}{int} minute = atoi(minuteArray);}
+\DoxyCodeLine{42     }
+\DoxyCodeLine{43     \textcolor{keywordflow}{if} (minute > 59 || minute < 0)\{}
+\DoxyCodeLine{44         klogv(\textcolor{stringliteral}{"{}Not a valid minute, please enter between 0 and 59 inclusive."{}});}
+\DoxyCodeLine{45         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{46     \}}
+\DoxyCodeLine{47     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} temp7= \mbox{\hyperlink{comhand_8h_a2e1fc84515d116c4f6dbe88d321abf65}{iToBcd}}(minute);}
+\DoxyCodeLine{48     outb(0x71, temp7);}
+\DoxyCodeLine{49     }
+\DoxyCodeLine{50     outb(0x70, 0x00);}
+\DoxyCodeLine{51     }
+\DoxyCodeLine{52     }
+\DoxyCodeLine{53     \textcolor{keywordtype}{char} secondArray[3];}
+\DoxyCodeLine{54     secondArray[0]=timeCopy[6];}
+\DoxyCodeLine{55     secondArray[1]=timeCopy[7];}
+\DoxyCodeLine{56     \textcolor{keywordtype}{int} second= atoi(secondArray);}
+\DoxyCodeLine{57     \textcolor{keywordflow}{if} (second > 59 || second < 0)\{}
+\DoxyCodeLine{58         klogv(\textcolor{stringliteral}{"{}Not a valid second, please enter between 0 and 59 inclusive."{}});}
+\DoxyCodeLine{59         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{60     \}}
+\DoxyCodeLine{61     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} temp8= \mbox{\hyperlink{comhand_8h_a2e1fc84515d116c4f6dbe88d321abf65}{iToBcd}}(second);}
+\DoxyCodeLine{62     outb(0x71, temp8);          }
+\DoxyCodeLine{63     sti();}
+\DoxyCodeLine{64 \}}
+
+\end{DoxyCode}

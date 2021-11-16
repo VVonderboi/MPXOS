@@ -1,0 +1,466 @@
+\hypertarget{ioscheduler_8h}{}\doxysection{mpx\+\_\+core/modules/ioscheduler.h File Reference}
+\label{ioscheduler_8h}\index{mpx\_core/modules/ioscheduler.h@{mpx\_core/modules/ioscheduler.h}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structDCB}{DCB}}
+\item 
+struct \mbox{\hyperlink{structIOCB}{IOCB}}
+\item 
+struct \mbox{\hyperlink{structIOCBQueue}{IOCBQueue}}
+\item 
+struct \mbox{\hyperlink{structRingBuffer}{Ring\+Buffer}}
+\item 
+struct \mbox{\hyperlink{structwait}{wait}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{ioscheduler_8h_a5bfaf38f7c5bf559bcf4014c9b71e58c}\label{ioscheduler_8h_a5bfaf38f7c5bf559bcf4014c9b71e58c}} 
+typedef struct \mbox{\hyperlink{structDCB}{DCB}} {\bfseries DCB}
+\item 
+\mbox{\Hypertarget{ioscheduler_8h_aa453e0a1c8753eb927e6ad5e85338543}\label{ioscheduler_8h_aa453e0a1c8753eb927e6ad5e85338543}} 
+typedef struct \mbox{\hyperlink{structIOCB}{IOCB}} {\bfseries IOCB}
+\item 
+\mbox{\Hypertarget{ioscheduler_8h_a00a9378517f8717dbea6c3aafb911f1d}\label{ioscheduler_8h_a00a9378517f8717dbea6c3aafb911f1d}} 
+typedef struct \mbox{\hyperlink{structIOCBQueue}{IOCBQueue}} {\bfseries IOCBQueue}
+\item 
+\mbox{\Hypertarget{ioscheduler_8h_ac0132fb254601f025c3cf73363a3c90c}\label{ioscheduler_8h_ac0132fb254601f025c3cf73363a3c90c}} 
+typedef struct \mbox{\hyperlink{structRingBuffer}{Ring\+Buffer}} {\bfseries Ring\+Buffer}
+\item 
+\mbox{\Hypertarget{ioscheduler_8h_a1499e3a0b1664c4ffd11587154ae21c0}\label{ioscheduler_8h_a1499e3a0b1664c4ffd11587154ae21c0}} 
+typedef struct \mbox{\hyperlink{structwait}{wait}} {\bfseries wait}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{ioscheduler_8h_a61e199cf32c13a7d7c784c5bbff2dae8}{com\+\_\+open}} (int $\ast$eflag\+\_\+p, int baud\+\_\+rate)
+\item 
+int \mbox{\hyperlink{ioscheduler_8h_aa39f1d25e881ffac9559b2fe816fe943}{com\+\_\+close}} (void)
+\item 
+int \mbox{\hyperlink{ioscheduler_8h_a5d2d449f4aadb74a2eb2b4aadeaf4b57}{com\+\_\+read}} (char $\ast$buf\+\_\+p, int $\ast$count\+\_\+p)
+\item 
+int \mbox{\hyperlink{ioscheduler_8h_af03ea2dd941f2ecc4035da028d1f41b5}{com\+\_\+write}} (char $\ast$buf\+\_\+p, int $\ast$count\+\_\+p)
+\item 
+void \mbox{\hyperlink{ioscheduler_8h_a1272fe5e0902da5a4bfb03d805ed1282}{main\+Handle}} ()
+\item 
+int \mbox{\hyperlink{ioscheduler_8h_a368af59f4de1df8e9fa0389bb5605863}{input\+Handle}} ()
+\item 
+int \mbox{\hyperlink{ioscheduler_8h_ae8c5b52010996c627b85051fbdd9a05a}{output\+Handle}} ()
+\item 
+\mbox{\Hypertarget{ioscheduler_8h_aefe281522a3953e61aa44a67c168b947}\label{ioscheduler_8h_aefe281522a3953e61aa44a67c168b947}} 
+int {\bfseries IOScheduler} (char $\ast$opcode, \mbox{\hyperlink{structIOCB}{IOCB}} $\ast$cb\+In)
+\item 
+\mbox{\hyperlink{structIOCBQueue}{IOCBQueue}} $\ast$ \mbox{\hyperlink{ioscheduler_8h_a44089a0e878b231712ce97c82b8a1a19}{queue\+Out}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{ioscheduler_8h_aa39f1d25e881ffac9559b2fe816fe943}\label{ioscheduler_8h_aa39f1d25e881ffac9559b2fe816fe943}} 
+\index{ioscheduler.h@{ioscheduler.h}!com\_close@{com\_close}}
+\index{com\_close@{com\_close}!ioscheduler.h@{ioscheduler.h}}
+\doxysubsubsection{\texorpdfstring{com\_close()}{com\_close()}}
+{\footnotesize\ttfamily int com\+\_\+close (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Procedure..\+: com\+\_\+close Description..\+: Will set the mask register, clear the modem, enable interrupts, and restore the interrupt vector. 
+
+Definition at line 181 of file ioscheduler.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{181                     \{}
+\DoxyCodeLine{182 }
+\DoxyCodeLine{183     \textcolor{keywordflow}{if}(newDCB-\/>portflag==1)\{ \textcolor{comment}{//1. check if port open}}
+\DoxyCodeLine{184         newDCB-\/>portflag=0; \textcolor{comment}{//2. clear open}}
+\DoxyCodeLine{185            \textcolor{comment}{//3. disable in PIC mask}}
+\DoxyCodeLine{186         \textcolor{keywordtype}{int} mask;}
+\DoxyCodeLine{187         cli();}
+\DoxyCodeLine{188         mask = inb(0x21);}
+\DoxyCodeLine{189         mask = mask \& \string~0x80;}
+\DoxyCodeLine{190         outb(0x21, mask);}
+\DoxyCodeLine{191         sti();}
+\DoxyCodeLine{192         }
+\DoxyCodeLine{193         \textcolor{comment}{//4. disable all ACC interr, zero out Modem status and Interr Enable}}
+\DoxyCodeLine{194         \textcolor{keywordtype}{int} modem;}
+\DoxyCodeLine{195         cli();}
+\DoxyCodeLine{196         modem = inb(COM1+6);}
+\DoxyCodeLine{197         modem=modem\&0x00;}
+\DoxyCodeLine{198         outb(COM1+6,modem);}
+\DoxyCodeLine{199         sti();}
+\DoxyCodeLine{200         }
+\DoxyCodeLine{201         \textcolor{keywordtype}{int} interenable;}
+\DoxyCodeLine{202         cli();}
+\DoxyCodeLine{203         interenable=inb(COM1+1);}
+\DoxyCodeLine{204         interenable=interenable\&0x00;}
+\DoxyCodeLine{205         outb(COM1+1,interenable);}
+\DoxyCodeLine{206         sti();}
+\DoxyCodeLine{207         }
+\DoxyCodeLine{208         \textcolor{comment}{//5. restore original saved interrupt vector}}
+\DoxyCodeLine{209         \textcolor{comment}{//COM1 interrupt vector number (0030h) and level 4}}
+\DoxyCodeLine{210         \textcolor{comment}{//idt\_set\_gate(24, (u32int)oldHandler, 0x08, 0x8e);}}
+\DoxyCodeLine{211         }
+\DoxyCodeLine{212             \textcolor{keywordtype}{int} vector;}
+\DoxyCodeLine{213             }
+\DoxyCodeLine{214             cli();}
+\DoxyCodeLine{215             vector = inb(COM1);}
+\DoxyCodeLine{216             vector = vector >> 1;}
+\DoxyCodeLine{217             vector = vector >> 1;}
+\DoxyCodeLine{218             vector = vector >> 1;}
+\DoxyCodeLine{219             vector = vector >> 1;}
+\DoxyCodeLine{220             outb(COM1, vector);}
+\DoxyCodeLine{221             sti();}
+\DoxyCodeLine{222         }
+\DoxyCodeLine{223         \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{224         }
+\DoxyCodeLine{225     \}}
+\DoxyCodeLine{226     \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{227         \textcolor{keywordflow}{return} -\/201;\textcolor{comment}{//port not open}}
+\DoxyCodeLine{228     \}}
+\DoxyCodeLine{229     }
+\DoxyCodeLine{230     }
+\DoxyCodeLine{231     }
+\DoxyCodeLine{232     \textcolor{comment}{//return -\/1;  0 if fine, -\/201 if "{}serial port not open"{}, -\/1 if break on us }}
+\DoxyCodeLine{233 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{ioscheduler_8h_a61e199cf32c13a7d7c784c5bbff2dae8}\label{ioscheduler_8h_a61e199cf32c13a7d7c784c5bbff2dae8}} 
+\index{ioscheduler.h@{ioscheduler.h}!com\_open@{com\_open}}
+\index{com\_open@{com\_open}!ioscheduler.h@{ioscheduler.h}}
+\doxysubsubsection{\texorpdfstring{com\_open()}{com\_open()}}
+{\footnotesize\ttfamily int com\+\_\+open (\begin{DoxyParamCaption}\item[{int $\ast$}]{eflag\+\_\+p,  }\item[{int}]{baud\+\_\+rate }\end{DoxyParamCaption})}
+
+Procedure..\+: com\+\_\+open Description..\+: Will take in the event flag and baud rate, calculate the baud rate divisor, and initialize the \mbox{\hyperlink{structDCB}{DCB}} and Ring Buffer to open the COM ports. 
+
+Definition at line 91 of file ioscheduler.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{91                                           \{ \textcolor{comment}{//map 24 here}}
+\DoxyCodeLine{92     }
+\DoxyCodeLine{93     \textcolor{comment}{//1. ensure valid params and device not open}}
+\DoxyCodeLine{94     \textcolor{keywordflow}{if}(eflag\_p!=NULL \&\& (baud\_rate == 110 || baud\_rate == 150 || baud\_rate == 300 || baud\_rate == 600 || baud\_rate == 1200 || baud\_rate == 2400 || baud\_rate == 4800 || baud\_rate == 9600 || baud\_rate == 19200))\{\textcolor{comment}{//check eflag\_p \& baud\_rate}}
+\DoxyCodeLine{95         \textcolor{keywordflow}{if}(newDCB-\/>portflag==0)\{\textcolor{comment}{//check if open}}
+\DoxyCodeLine{96             \textcolor{comment}{//2. init DCB;}}
+\DoxyCodeLine{97             newDCB-\/>portflag = 1;}
+\DoxyCodeLine{98             newDCB-\/>eventflag = eflag\_p; \textcolor{comment}{//"{}this is a far pointer to an integer event flag."{} (from Detailed document); int*}}
+\DoxyCodeLine{99             newDCB-\/>statuscode = \textcolor{stringliteral}{"{}IDLE"{}}; \textcolor{comment}{//idle, reading, writing are possible values; char*}}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101             \textcolor{comment}{//also init RingBuffer}}
+\DoxyCodeLine{102             newRing-\/>ring[0]=NULL;}
+\DoxyCodeLine{103             newRing-\/>ringHead=newRing-\/>ring[headI];}
+\DoxyCodeLine{104             newRing-\/>ringTail=newRing-\/>ring[i];}
+\DoxyCodeLine{105             newRing-\/>inputindex= i;}
+\DoxyCodeLine{106             newRing-\/>outputindex= i;}
+\DoxyCodeLine{107             newRing-\/>counter = i;}
+\DoxyCodeLine{108             newWait-\/>headIOCB=NULL;}
+\DoxyCodeLine{109             newWait-\/>tailIOCB=NULL;}
+\DoxyCodeLine{110             newIOCBQueue-\/>queueHead=NULL;}
+\DoxyCodeLine{111             newIOCBQueue-\/>queueTail=NULL;}
+\DoxyCodeLine{112         }
+\DoxyCodeLine{113             \textcolor{comment}{//3. save address of current interrupt handler \& put in new one}}
+\DoxyCodeLine{114             \textcolor{comment}{//oldHandler = idt\_get\_gate(24);}}
+\DoxyCodeLine{115             idt\_set\_gate(24, (u32int)\mbox{\hyperlink{ioscheduler_8h_a1272fe5e0902da5a4bfb03d805ed1282}{mainHandle}}, 0x08, 0x8e);}
+\DoxyCodeLine{116         }
+\DoxyCodeLine{117             \textcolor{comment}{//4. compute baud rate divisor}}
+\DoxyCodeLine{118             baud\_div = 115200 / (long) baud\_rate;}
+\DoxyCodeLine{119     }
+\DoxyCodeLine{120             \textcolor{comment}{//5. Store 0x80 in Line Control Register}}
+\DoxyCodeLine{121                 outb(COM1+3,0x80); }
+\DoxyCodeLine{122                 \textcolor{comment}{//LCR is COM1 + 3}}
+\DoxyCodeLine{123         }
+\DoxyCodeLine{124             \textcolor{comment}{//6. store baud\_div bytes in MSB and LSB}}
+\DoxyCodeLine{125                 \textcolor{comment}{//Make sure that bit 7 of the LCR is 1, this enables to do so!}}
+\DoxyCodeLine{126                 \textcolor{comment}{//COM1 + 1}}
+\DoxyCodeLine{127                 outb(COM1+1,baud\_div);}
+\DoxyCodeLine{128             \textcolor{comment}{//7. Store 0x03 in LCR}}
+\DoxyCodeLine{129                 \textcolor{comment}{//LCR is COM1 + 3}}
+\DoxyCodeLine{130                 outb(COM1+3,0x03);}
+\DoxyCodeLine{131                 }
+\DoxyCodeLine{132                 }
+\DoxyCodeLine{133                 }
+\DoxyCodeLine{134                 }
+\DoxyCodeLine{135             \textcolor{comment}{//8. Enable right level in PIC mask reg}}
+\DoxyCodeLine{136              }
+\DoxyCodeLine{137             }
+\DoxyCodeLine{138             \textcolor{keywordtype}{int} mask2;}
+\DoxyCodeLine{139             }
+\DoxyCodeLine{140             cli();}
+\DoxyCodeLine{141             mask2 = inb(0x21);}
+\DoxyCodeLine{142             mask2 = mask2 >> 1;}
+\DoxyCodeLine{143             mask2 = mask2 >> 1;}
+\DoxyCodeLine{144             mask2 = mask2 >> 1;}
+\DoxyCodeLine{145             mask2 = mask2 >> 1;}
+\DoxyCodeLine{146             outb(0x21, mask2);}
+\DoxyCodeLine{147             sti();}
+\DoxyCodeLine{148             }
+\DoxyCodeLine{149                 }
+\DoxyCodeLine{150                 \textcolor{comment}{/*outb(0x21,);//check pg 17 of doc}}
+\DoxyCodeLine{151 \textcolor{comment}{                inb(0x21);}}
+\DoxyCodeLine{152 \textcolor{comment}{                //logic AND*/}}
+\DoxyCodeLine{153     }
+\DoxyCodeLine{154 }
+\DoxyCodeLine{155             \textcolor{comment}{//9. Enable main serial port inter., put 0x08 in Modem reg}}
+\DoxyCodeLine{156                 outb(COM1+4,0x08);}
+\DoxyCodeLine{157             \textcolor{comment}{//10. Enable input ready inter., put 0x01 in Inter. Enable reg; see outputhandle for bit stuff (in the (), do correct level in the shift)}}
+\DoxyCodeLine{158                 outb(COM1+1,0x01);}
+\DoxyCodeLine{159                 \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{160         \}}
+\DoxyCodeLine{161         \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{162             \textcolor{keywordflow}{return} -\/103;\textcolor{comment}{//port already open}}
+\DoxyCodeLine{163         \}}
+\DoxyCodeLine{164     \}}
+\DoxyCodeLine{165     \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{166         \textcolor{keywordflow}{if}(*eflag\_p==NULL)\{ \textcolor{comment}{//bad event flag pointer}}
+\DoxyCodeLine{167             \textcolor{keywordflow}{return} -\/101;}
+\DoxyCodeLine{168         \}}
+\DoxyCodeLine{169         \textcolor{keywordflow}{else}\{ \textcolor{comment}{//bad baud rate div}}
+\DoxyCodeLine{170             \textcolor{keywordflow}{return} -\/102;}
+\DoxyCodeLine{171         \}}
+\DoxyCodeLine{172     \}}
+\DoxyCodeLine{173         }
+\DoxyCodeLine{174     \textcolor{keywordflow}{return} 0;\textcolor{comment}{//0 if fine}}
+\DoxyCodeLine{175 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{ioscheduler_8h_a5d2d449f4aadb74a2eb2b4aadeaf4b57}\label{ioscheduler_8h_a5d2d449f4aadb74a2eb2b4aadeaf4b57}} 
+\index{ioscheduler.h@{ioscheduler.h}!com\_read@{com\_read}}
+\index{com\_read@{com\_read}!ioscheduler.h@{ioscheduler.h}}
+\doxysubsubsection{\texorpdfstring{com\_read()}{com\_read()}}
+{\footnotesize\ttfamily int com\+\_\+read (\begin{DoxyParamCaption}\item[{char $\ast$}]{buf\+\_\+p,  }\item[{int $\ast$}]{count\+\_\+p }\end{DoxyParamCaption})}
+
+Procedure..\+: com\+\_\+read Description..\+: Will open the input buffer, move characters from the ring buffer to the input buffer until the ring is empty, the count input is reached, or an ENTER is pressed, and return. 
+
+Definition at line 239 of file ioscheduler.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{239                                         \{}
+\DoxyCodeLine{240     \textcolor{keywordflow}{if}(newDCB-\/>portflag==1)\{ \textcolor{comment}{//2. check if open}}
+\DoxyCodeLine{241         \textcolor{keywordflow}{if}(buf\_p!=NULL\&\&count\_p!=NULL\&\&*count\_p<=0)\{ \textcolor{comment}{//1. check params}}
+\DoxyCodeLine{242             \textcolor{comment}{//3. initialize input buffer}}
+\DoxyCodeLine{243             newDCB-\/>inbuffer=(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}*) buf\_p;}
+\DoxyCodeLine{244             newDCB-\/>incount=*count\_p;}
+\DoxyCodeLine{245             newDCB-\/>statuscode = \textcolor{stringliteral}{"{}READ"{}};}
+\DoxyCodeLine{246             \textcolor{keywordflow}{while}(i!=0)\{}
+\DoxyCodeLine{247                 \textcolor{keywordflow}{if}(newDCB-\/>incount==newRing-\/>counter)\{\textcolor{comment}{//count been reached}}
+\DoxyCodeLine{248                     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{249                 \}}
+\DoxyCodeLine{250                 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(newDCB-\/>inbuffer[newDCB-\/>incount]==13)\{\textcolor{comment}{//CR is found}}
+\DoxyCodeLine{251                     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{252                 \}}
+\DoxyCodeLine{253                 newDCB-\/>inbuffer=newDCB-\/>inbuffer + newRing-\/>ring[i];}
+\DoxyCodeLine{254                 newRing-\/>ring[i]=\textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{255                 i-\/-\/;}
+\DoxyCodeLine{256                 actualcount++;}
+\DoxyCodeLine{257             \}}
+\DoxyCodeLine{258             \textcolor{keywordflow}{if}(newDCB-\/>incount!=actualcount)\{\textcolor{comment}{//need more characters}}
+\DoxyCodeLine{259                 \textcolor{keywordflow}{return} NULL;}
+\DoxyCodeLine{260             \}}
+\DoxyCodeLine{261             \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{262                 newDCB-\/>statuscode = \textcolor{stringliteral}{"{}IDLE"{}};}
+\DoxyCodeLine{263                 *newDCB-\/>eventflag = 1;}
+\DoxyCodeLine{264                 \textcolor{keywordflow}{return} actualcount;}
+\DoxyCodeLine{265             \}}
+\DoxyCodeLine{266         \}}
+\DoxyCodeLine{267         \textcolor{keywordflow}{else}\{ \textcolor{comment}{//not valid params}}
+\DoxyCodeLine{268             \textcolor{keywordflow}{if}(buf\_p==NULL)\{\textcolor{comment}{//bad buffer address}}
+\DoxyCodeLine{269                 \textcolor{keywordflow}{return} -\/302;}
+\DoxyCodeLine{270             \}}
+\DoxyCodeLine{271             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(count\_p==NULL||*count\_p>0||*count\_p==NULL)\{\textcolor{comment}{//bad count address or value}}
+\DoxyCodeLine{272                 \textcolor{keywordflow}{return} -\/303;}
+\DoxyCodeLine{273             \}}
+\DoxyCodeLine{274             \textcolor{keywordflow}{else}\{\textcolor{comment}{//device busy}}
+\DoxyCodeLine{275                 \textcolor{keywordflow}{return} -\/304;}
+\DoxyCodeLine{276             \}}
+\DoxyCodeLine{277         \}}
+\DoxyCodeLine{278     \}}
+\DoxyCodeLine{279     \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{280         \textcolor{keywordflow}{return} -\/301; \textcolor{comment}{//port not open}}
+\DoxyCodeLine{281     \}}
+\DoxyCodeLine{282     }
+\DoxyCodeLine{283     }
+\DoxyCodeLine{284     \textcolor{keywordflow}{return} 0;\textcolor{comment}{//0 if fine}}
+\DoxyCodeLine{285 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{ioscheduler_8h_af03ea2dd941f2ecc4035da028d1f41b5}\label{ioscheduler_8h_af03ea2dd941f2ecc4035da028d1f41b5}} 
+\index{ioscheduler.h@{ioscheduler.h}!com\_write@{com\_write}}
+\index{com\_write@{com\_write}!ioscheduler.h@{ioscheduler.h}}
+\doxysubsubsection{\texorpdfstring{com\_write()}{com\_write()}}
+{\footnotesize\ttfamily int com\+\_\+write (\begin{DoxyParamCaption}\item[{char $\ast$}]{buf\+\_\+p,  }\item[{int $\ast$}]{count\+\_\+p }\end{DoxyParamCaption})}
+
+Procedure..\+: com\+\_\+write Description..\+: Will open the output buffer, get characters from the output register, move them to the correct register, and then enable interrupts. 
+
+Definition at line 291 of file ioscheduler.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{291                                          \{}
+\DoxyCodeLine{292     }
+\DoxyCodeLine{293     \textcolor{keywordflow}{if}(newDCB-\/>portflag==1)\{}
+\DoxyCodeLine{294         \textcolor{keywordflow}{if}(buf\_p!=NULL\&\&count\_p!=NULL\&\&*count\_p<=0)\{\textcolor{comment}{//check params}}
+\DoxyCodeLine{295             newDCB-\/>outbuffer=(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}*) buf\_p;}
+\DoxyCodeLine{296             newDCB-\/>outcount=*count\_p;}
+\DoxyCodeLine{297             newDCB-\/>statuscode=\textcolor{stringliteral}{"{}WRITE"{}};}
+\DoxyCodeLine{298             *newDCB-\/>eventflag=1;}
+\DoxyCodeLine{299             \textcolor{comment}{//char charIn=newDCB-\/>inbuffer[0]; get 1st char}}
+\DoxyCodeLine{300             }
+\DoxyCodeLine{301             \textcolor{keywordtype}{int} writebyte;}
+\DoxyCodeLine{302             cli();}
+\DoxyCodeLine{303             writebyte = inb(0x21);}
+\DoxyCodeLine{304             writebyte = writebyte | 0x02;}
+\DoxyCodeLine{305             outb(0x21, writebyte);}
+\DoxyCodeLine{306             sti();}
+\DoxyCodeLine{307             }
+\DoxyCodeLine{308         \}}
+\DoxyCodeLine{309         \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{310             \textcolor{keywordflow}{if}(buf\_p==NULL)\{}
+\DoxyCodeLine{311                 \textcolor{keywordflow}{return} -\/402;\textcolor{comment}{//invalid buffer address}}
+\DoxyCodeLine{312             \}}
+\DoxyCodeLine{313             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(count\_p==NULL||*count\_p>0||*count\_p==NULL)\{}
+\DoxyCodeLine{314                 \textcolor{keywordflow}{return} -\/403;\textcolor{comment}{//invalid count address or value}}
+\DoxyCodeLine{315             \}}
+\DoxyCodeLine{316             \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{317                 \textcolor{keywordflow}{return} -\/404;\textcolor{comment}{//device busy}}
+\DoxyCodeLine{318             \}}
+\DoxyCodeLine{319             }
+\DoxyCodeLine{320         \}}
+\DoxyCodeLine{321     \}}
+\DoxyCodeLine{322     \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{323         \textcolor{keywordflow}{return} -\/401;\textcolor{comment}{//port not open}}
+\DoxyCodeLine{324     \}}
+\DoxyCodeLine{325 }
+\DoxyCodeLine{326     \textcolor{keywordflow}{return} 0;\textcolor{comment}{//0 if fine, -\/401 if "{}serial port not open"{}, -\/402 if "{}invalid buffer address"{}, -\/403 if "{}invalid count address or count value"{}, -\/404 if "{}device busy"{}}}
+\DoxyCodeLine{327 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{ioscheduler_8h_a368af59f4de1df8e9fa0389bb5605863}\label{ioscheduler_8h_a368af59f4de1df8e9fa0389bb5605863}} 
+\index{ioscheduler.h@{ioscheduler.h}!inputHandle@{inputHandle}}
+\index{inputHandle@{inputHandle}!ioscheduler.h@{ioscheduler.h}}
+\doxysubsubsection{\texorpdfstring{inputHandle()}{inputHandle()}}
+{\footnotesize\ttfamily int input\+Handle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Procedure..\+: input\+Handle Description..\+: Will read in a character from the comunication port, store the character in the ring buffer if the device is not ready for it, and then move it to the input buffer when it is and return. 
+
+Definition at line 360 of file ioscheduler.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{360                  \{}
+\DoxyCodeLine{361     \textcolor{keywordtype}{char} letterIn = (char) inb(COM1); \textcolor{comment}{//1. read char from input reg}}
+\DoxyCodeLine{362     \textcolor{keywordflow}{if}(strcmp(newDCB-\/>statuscode,\textcolor{stringliteral}{"{}READ"{}})!=0)\{\textcolor{comment}{//2. if not reading, store in ring buffer;}}
+\DoxyCodeLine{363         newRing-\/>ring[i] = letterIn;}
+\DoxyCodeLine{364         newRing-\/>ringHead=newRing-\/>ring[headI];}
+\DoxyCodeLine{365         newRing-\/>ringTail=newRing-\/>ring[i];}
+\DoxyCodeLine{366         \textcolor{keywordflow}{return} NULL;}
+\DoxyCodeLine{367     \}}
+\DoxyCodeLine{368     \textcolor{keywordflow}{else}\{\textcolor{comment}{//3. else, is reading. store in input buffer of requester (COM1);      }}
+\DoxyCodeLine{369             outb(letterIn, newDCB-\/>inbuffer); }
+\DoxyCodeLine{370             \textcolor{keywordflow}{if}(newDCB-\/>incount!= 0 )\{\textcolor{comment}{//4. If the count is not completed and the character is not CR, return. Do not signal completion. ; decrement a count value like in polling, once is 0}}
+\DoxyCodeLine{371             \textcolor{comment}{//then done once hit 0}}
+\DoxyCodeLine{372                 \textcolor{keywordflow}{return} NULL; \textcolor{comment}{//temp value, decide}}
+\DoxyCodeLine{373             \}}
+\DoxyCodeLine{374             \textcolor{keywordflow}{else}\{\textcolor{comment}{//5. Otherwise, the transfer has completed. Set the status to idle. Set the event flag and return the requestor's count value. }}
+\DoxyCodeLine{375                 newDCB-\/>statuscode=\textcolor{stringliteral}{"{}IDLE"{}};}
+\DoxyCodeLine{376                 *newDCB-\/>eventflag=1;}
+\DoxyCodeLine{377                 \textcolor{keywordflow}{return} newDCB-\/>incount;}
+\DoxyCodeLine{378             \}}
+\DoxyCodeLine{379         }
+\DoxyCodeLine{380     \}}
+\DoxyCodeLine{381 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{ioscheduler_8h_a1272fe5e0902da5a4bfb03d805ed1282}\label{ioscheduler_8h_a1272fe5e0902da5a4bfb03d805ed1282}} 
+\index{ioscheduler.h@{ioscheduler.h}!mainHandle@{mainHandle}}
+\index{mainHandle@{mainHandle}!ioscheduler.h@{ioscheduler.h}}
+\doxysubsubsection{\texorpdfstring{mainHandle()}{mainHandle()}}
+{\footnotesize\ttfamily void main\+Handle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Procedure..\+: main\+Handle Description..\+: Will check the incoming bits to determine if it is inputting or outputting and then redirect to the correct handler. 
+
+Definition at line 335 of file ioscheduler.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{335                  \{ }
+\DoxyCodeLine{336     \textcolor{keywordtype}{int} EOI=0x20;}
+\DoxyCodeLine{337     \textcolor{comment}{//1. if port is not open, clear interrupt, return}}
+\DoxyCodeLine{338     \textcolor{keywordtype}{int} bitIn = inb(COM1 +2); \textcolor{comment}{//2.}}
+\DoxyCodeLine{339     \textcolor{keywordtype}{int} get1st = bitIn>>1 \& 1;}
+\DoxyCodeLine{340     \textcolor{keywordtype}{int} get2nd = bitIn>>2 \& 1;}
+\DoxyCodeLine{341     \textcolor{keywordflow}{if}(get1st==1 \&\& get2nd==0)\{}
+\DoxyCodeLine{342         \textcolor{comment}{//output interrupt}}
+\DoxyCodeLine{343         \mbox{\hyperlink{ioscheduler_8h_ae8c5b52010996c627b85051fbdd9a05a}{outputHandle}}();\textcolor{comment}{//3.}}
+\DoxyCodeLine{344     \}}
+\DoxyCodeLine{345     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(get1st==0 \&\& get2nd==1)\{}
+\DoxyCodeLine{346         \textcolor{comment}{//input interrupt}}
+\DoxyCodeLine{347         \mbox{\hyperlink{ioscheduler_8h_a368af59f4de1df8e9fa0389bb5605863}{inputHandle}}();\textcolor{comment}{//3.}}
+\DoxyCodeLine{348     \}}
+\DoxyCodeLine{349     \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{350         \textcolor{comment}{//skip}}
+\DoxyCodeLine{351     \}}
+\DoxyCodeLine{352     outb(0x20, EOI);\textcolor{comment}{//4. send eoi to pic (clears interrupt)}}
+\DoxyCodeLine{353     }
+\DoxyCodeLine{354 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{ioscheduler_8h_ae8c5b52010996c627b85051fbdd9a05a}\label{ioscheduler_8h_ae8c5b52010996c627b85051fbdd9a05a}} 
+\index{ioscheduler.h@{ioscheduler.h}!outputHandle@{outputHandle}}
+\index{outputHandle@{outputHandle}!ioscheduler.h@{ioscheduler.h}}
+\doxysubsubsection{\texorpdfstring{outputHandle()}{outputHandle()}}
+{\footnotesize\ttfamily int output\+Handle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Procedure..\+: output\+Handle Description..\+: Will take in a character from the output buffer, move it to the correct register, and then return. 
+
+Definition at line 387 of file ioscheduler.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{387                   \{}
+\DoxyCodeLine{388  \textcolor{comment}{/*1. If the current status is not writing, ignore the interrupt and return. }}
+\DoxyCodeLine{389 \textcolor{comment}{    2. Otherwise, if the count has not been exhausted, get the next character from the requestor's output buffer and store it in the output register. Return without signaling completion. }}
+\DoxyCodeLine{390 \textcolor{comment}{    3. Otherwise, all characters have been transferred. Reset the status to idle. Set the event flag and return the count value. Disable write interrupts by clearing bit 1 in the interrupt enable register.*/}}
+\DoxyCodeLine{391     \textcolor{keywordflow}{if}(strcmp(newDCB-\/>statuscode,\textcolor{stringliteral}{"{}WRITE"{}}))\{\textcolor{comment}{//1. If not writing status, return;}}
+\DoxyCodeLine{392         \textcolor{keywordflow}{return} NULL;}
+\DoxyCodeLine{393     \}}
+\DoxyCodeLine{394     \textcolor{keywordflow}{else}\{ \textcolor{comment}{//2. Else if count not done, get next character from output buffer and store in out reg., return;}}
+\DoxyCodeLine{395         \textcolor{keywordflow}{if}(newDCB-\/>outcount!= 0  )\{}
+\DoxyCodeLine{396             \textcolor{comment}{//char* outin=inb(outbuffer);}}
+\DoxyCodeLine{397             \textcolor{comment}{//outb(newDCB-\/>outbuffer, newRing[newRing-\/>outputindex]);}}
+\DoxyCodeLine{398             \textcolor{keywordflow}{return} NULL;}
+\DoxyCodeLine{399         \}}
+\DoxyCodeLine{400         \textcolor{keywordflow}{else}\{ \textcolor{comment}{//3. Else all transfered, set idle, event flag, return count, disable write interr.}}
+\DoxyCodeLine{401             newDCB-\/>statuscode=\textcolor{stringliteral}{"{}IDLE"{}};}
+\DoxyCodeLine{402             *newDCB-\/>eventflag= 1;}
+\DoxyCodeLine{403             }
+\DoxyCodeLine{404             \textcolor{comment}{//disable write interrupt by clearing bit 1 in the interrupt enable register}}
+\DoxyCodeLine{405             \textcolor{keywordtype}{int} in;}
+\DoxyCodeLine{406             cli();}
+\DoxyCodeLine{407             in=inb(COM1+1);}
+\DoxyCodeLine{408             in=in \& \string~(1<<1);}
+\DoxyCodeLine{409             outb(COM1+1, in);}
+\DoxyCodeLine{410             sti();}
+\DoxyCodeLine{411             }
+\DoxyCodeLine{412             \textcolor{keywordflow}{return} newDCB-\/>outcount;}
+\DoxyCodeLine{413         \}}
+\DoxyCodeLine{414     \}}
+\DoxyCodeLine{415 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{ioscheduler_8h_a44089a0e878b231712ce97c82b8a1a19}\label{ioscheduler_8h_a44089a0e878b231712ce97c82b8a1a19}} 
+\index{ioscheduler.h@{ioscheduler.h}!queueOut@{queueOut}}
+\index{queueOut@{queueOut}!ioscheduler.h@{ioscheduler.h}}
+\doxysubsubsection{\texorpdfstring{queueOut()}{queueOut()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structIOCBQueue}{IOCBQueue}}$\ast$ queue\+Out (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Procedure..\+: queue\+Out Description..\+: Will return the current \mbox{\hyperlink{structIOCBQueue}{IOCBQueue}} to the calling method to be used there. 
+
+Definition at line 471 of file ioscheduler.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{471                      \{}
+\DoxyCodeLine{472     \textcolor{keywordflow}{return} newIOCBQueue;}
+\DoxyCodeLine{473 \}}
+
+\end{DoxyCode}

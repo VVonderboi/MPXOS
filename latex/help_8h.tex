@@ -1,0 +1,177 @@
+\hypertarget{help_8h}{}\doxysection{mpx\+\_\+core/modules/help.h File Reference}
+\label{help_8h}\index{mpx\_core/modules/help.h@{mpx\_core/modules/help.h}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{help_8h_a8f4c00cc925a572a3d5f2035f1a4faee}{help}} (char $\ast$\mbox{\hyperlink{structparam}{param}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{help_8h_a8f4c00cc925a572a3d5f2035f1a4faee}\label{help_8h_a8f4c00cc925a572a3d5f2035f1a4faee}} 
+\index{help.h@{help.h}!help@{help}}
+\index{help@{help}!help.h@{help.h}}
+\doxysubsubsection{\texorpdfstring{help()}{help()}}
+{\footnotesize\ttfamily void help (\begin{DoxyParamCaption}\item[{char $\ast$}]{param }\end{DoxyParamCaption})}
+
+This function displays the man pages for each function in the module.
+
+Name = help~\newline
+Query = /help = (parameter);~\newline
+Parameters\+: command\+Name~\newline
+Description\+: Returns a string providing information about the desired command\+Name. display help manual page for version
+
+display help manual page for shutdown
+
+display help manual page for set\+\_\+date
+
+display help manual page for get\+\_\+date
+
+display help manual page for settime
+
+display help manual page for gettime
+
+display help manual page for deleteepcb
+
+display help manual page for setpriority
+
+display help manual page for resume
+
+display help manual page for suspend
+
+display help manual page for showready
+
+display help manual page for showblocked
+
+display help manual page for showall
+
+display help manual page for createpcb
+
+display help manual page for alarm
+
+display help manual page for showallalarms
+
+display help manual page for infinite
+
+display help manual page for showallocated
+
+display help manual page for showfree
+
+display help manual page for showmem
+
+Definition at line 13 of file help.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{13                       \{}
+\DoxyCodeLine{14 \textcolor{keywordflow}{if}(strlen(\mbox{\hyperlink{structparam}{param}}) == 0)\{}
+\DoxyCodeLine{15 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nAvailable Commands are: \(\backslash\)t/help; \(\backslash\)t/version; \(\backslash\)t/shutdown; \(\backslash\)t/setdate; \(\backslash\)n\(\backslash\)t/getdate; \(\backslash\)t/settime; \(\backslash\)t/gettime; \(\backslash\)n\(\backslash\)t/deletepcb; \(\backslash\)t/setpriority; \(\backslash\)n/resume; \(\backslash\)t/suspend; \(\backslash\)n\(\backslash\)t/showready; \(\backslash\)t/showblocked; \(\backslash\)t/showall;  \(\backslash\)t/showpcb; \(\backslash\)t/infinite; \(\backslash\)t/showallalarms; \(\backslash\)t/alarm; \(\backslash\)n \(\backslash\)t/showallocated; \(\backslash\)t/showmem; \(\backslash\)t/showfree;"{}});}
+\DoxyCodeLine{16 \}}
+\DoxyCodeLine{17 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(\mbox{\hyperlink{structparam}{param}},\textcolor{stringliteral}{"{}version"{}}) == 0)\{}
+\DoxyCodeLine{19 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nUsage: \(\backslash\)t/version;"{}});}
+\DoxyCodeLine{20 printStringln(\textcolor{stringliteral}{"{}Description: \(\backslash\)tVersion command will display current version of MPX OS"{}});}
+\DoxyCodeLine{21 printStringln(\textcolor{stringliteral}{"{}Parameters: \(\backslash\)tnone"{}});}
+\DoxyCodeLine{22 \}}
+\DoxyCodeLine{23 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(\mbox{\hyperlink{structparam}{param}},\textcolor{stringliteral}{"{}shutdown"{}}) == 0)\{}
+\DoxyCodeLine{25 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nUsage: \(\backslash\)t/shutdown;"{}});}
+\DoxyCodeLine{26 printStringln(\textcolor{stringliteral}{"{}Description: \(\backslash\)tShutdown command will shut the MPX OS down and halt ongoing processes. It will ask for confirmation before truly shutting down. /shutdown y; will confirm a shutdown request."{}});}
+\DoxyCodeLine{27 \}}
+\DoxyCodeLine{28 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(\mbox{\hyperlink{structparam}{param}},\textcolor{stringliteral}{"{}setdate"{}}) == 0)\{}
+\DoxyCodeLine{30 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nUsage: \(\backslash\)t/setdate = [ARG][MM-\/DD-\/YEAR];"{}});}
+\DoxyCodeLine{31 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nDescription: \(\backslash\)tSet Date command will allow user to set the system date"{}});}
+\DoxyCodeLine{32 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nParameters: \(\backslash\)tMM-\/DD-\/YEAR"{}});}
+\DoxyCodeLine{33 \}}
+\DoxyCodeLine{34 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(\mbox{\hyperlink{structparam}{param}},\textcolor{stringliteral}{"{}getdate"{}}) == 0)\{}
+\DoxyCodeLine{36 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nUsage: \(\backslash\)t/getdate;"{}});}
+\DoxyCodeLine{37 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nDescription: \(\backslash\)tGet Date command will allow user to access the current system date"{}});}
+\DoxyCodeLine{38 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nParameters: \(\backslash\)tnone"{}});}
+\DoxyCodeLine{39 \}}
+\DoxyCodeLine{40 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(\mbox{\hyperlink{structparam}{param}},\textcolor{stringliteral}{"{}settime"{}}) == 0)\{}
+\DoxyCodeLine{42 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nUsage: \(\backslash\)t/settime  = [ARG][HH-\/MM-\/SS];"{}});}
+\DoxyCodeLine{43 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nDescription: \(\backslash\)tSet Time command will allow user to set the system time"{}});}
+\DoxyCodeLine{44 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nParameters \(\backslash\)tHH-\/MM-\/SS"{}});}
+\DoxyCodeLine{45 \}}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(\mbox{\hyperlink{structparam}{param}},\textcolor{stringliteral}{"{}gettime"{}}) == 0)\{}
+\DoxyCodeLine{49 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nUsage: \(\backslash\)t/gettime;"{}});}
+\DoxyCodeLine{50 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nDescription: \(\backslash\)tGet Time command will allow user to access the current system time"{}});}
+\DoxyCodeLine{51 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nParameters: \(\backslash\)tnone"{}});}
+\DoxyCodeLine{52 \}}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(\mbox{\hyperlink{structparam}{param}},\textcolor{stringliteral}{"{}deletepcb"{}}) == 0)\{}
+\DoxyCodeLine{56 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nUsage: \(\backslash\)t/deletepcb =;"{}});}
+\DoxyCodeLine{57 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nDescription: \(\backslash\)tDeletes the PCB with the specified PCB if it exists"{}});}
+\DoxyCodeLine{58 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nParameters: \(\backslash\)tname\(\backslash\)n"{}});}
+\DoxyCodeLine{59 \}}
+\DoxyCodeLine{60 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(\mbox{\hyperlink{structparam}{param}},\textcolor{stringliteral}{"{}setpriority"{}}) == 0)\{}
+\DoxyCodeLine{62 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nUsage: \(\backslash\)t/setpriority;"{}});}
+\DoxyCodeLine{63 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nDescription: \(\backslash\)tSets the priority of a given PCB"{}});}
+\DoxyCodeLine{64 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nParameters: \(\backslash\)tThe name of a PCB and a priority number\(\backslash\)n"{}});}
+\DoxyCodeLine{65 \}}
+\DoxyCodeLine{66 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(\mbox{\hyperlink{structparam}{param}},\textcolor{stringliteral}{"{}resume"{}}) == 0)\{}
+\DoxyCodeLine{68 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nUsage: \(\backslash\)t/resume;"{}});}
+\DoxyCodeLine{69 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nDescription: \(\backslash\)tresumes a given pcb"{}});}
+\DoxyCodeLine{70 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nParameters: \(\backslash\)tName of a pcb\(\backslash\)n"{}});}
+\DoxyCodeLine{71 \}}
+\DoxyCodeLine{72 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(\mbox{\hyperlink{structparam}{param}},\textcolor{stringliteral}{"{}suspend"{}}) == 0)\{}
+\DoxyCodeLine{74 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nUsage: \(\backslash\)t/suspend;"{}});}
+\DoxyCodeLine{75 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nDescription: \(\backslash\)tSuspends a pcb"{}});}
+\DoxyCodeLine{76 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nParameters: \(\backslash\)tname\(\backslash\)n"{}});}
+\DoxyCodeLine{77 \}}
+\DoxyCodeLine{78 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(\mbox{\hyperlink{structparam}{param}},\textcolor{stringliteral}{"{}showready"{}}) == 0)\{}
+\DoxyCodeLine{80 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nUsage: \(\backslash\)t/showready;"{}});}
+\DoxyCodeLine{81 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nDescription: \(\backslash\)tShows all pcbs in the ready queue"{}});}
+\DoxyCodeLine{82 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nParameters: \(\backslash\)tnone\(\backslash\)n"{}});}
+\DoxyCodeLine{83 \}}
+\DoxyCodeLine{84 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(\mbox{\hyperlink{structparam}{param}},\textcolor{stringliteral}{"{}showblocked"{}}) == 0)\{}
+\DoxyCodeLine{86 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nUsage: \(\backslash\)t/showblocked;"{}});}
+\DoxyCodeLine{87 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nDescription: \(\backslash\)tShows the queue of blocked PCBs if it exists"{}});}
+\DoxyCodeLine{88 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nParameters: \(\backslash\)tnone\(\backslash\)n"{}});}
+\DoxyCodeLine{89 \}}
+\DoxyCodeLine{90 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(\mbox{\hyperlink{structparam}{param}},\textcolor{stringliteral}{"{}showall"{}}) == 0)\{}
+\DoxyCodeLine{92 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nUsage: \(\backslash\)t/setpriority;"{}});}
+\DoxyCodeLine{93 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nDescription: \(\backslash\)tShows all pcbs in both queues"{}});}
+\DoxyCodeLine{94 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nParameters: \(\backslash\)tnone\(\backslash\)n"{}});}
+\DoxyCodeLine{95 \}}
+\DoxyCodeLine{96     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(\mbox{\hyperlink{structparam}{param}},\textcolor{stringliteral}{"{}showpcb"{}}) == 0)\{}
+\DoxyCodeLine{98     printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nUsage: \(\backslash\)t/showpcb;"{}});}
+\DoxyCodeLine{99     printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nDescription: \(\backslash\)tShows all the attributes for a PCB"{}});}
+\DoxyCodeLine{100     printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nParameters: \(\backslash\)n"{}});}
+\DoxyCodeLine{101     \}}
+\DoxyCodeLine{102     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(\mbox{\hyperlink{structparam}{param}},\textcolor{stringliteral}{"{}alarm"{}}) == 0)\{}
+\DoxyCodeLine{104 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nUsage: \(\backslash\)t/alarm;"{}});}
+\DoxyCodeLine{105 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nDescription: \(\backslash\)tcreates alarm"{}});}
+\DoxyCodeLine{106 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nParameters: \(\backslash\)t hours minutes seconds\(\backslash\)n"{}});}
+\DoxyCodeLine{107 \}}
+\DoxyCodeLine{108 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(\mbox{\hyperlink{structparam}{param}},\textcolor{stringliteral}{"{}showallalarms"{}}) == 0)\{}
+\DoxyCodeLine{110 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nUsage: \(\backslash\)t/showallalarms;"{}});}
+\DoxyCodeLine{111 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nDescription: \(\backslash\)tshows alarm"{}});}
+\DoxyCodeLine{112 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nParameters: \(\backslash\)tnone\(\backslash\)n"{}});}
+\DoxyCodeLine{113 \}}
+\DoxyCodeLine{114 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(\mbox{\hyperlink{structparam}{param}},\textcolor{stringliteral}{"{}infinite"{}}) == 0)\{}
+\DoxyCodeLine{116 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nUsage: \(\backslash\)t/infinite;"{}});}
+\DoxyCodeLine{117 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nDescription: \(\backslash\)truns the infinite command"{}});}
+\DoxyCodeLine{118 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nParameters: \(\backslash\)t none\(\backslash\)n"{}});}
+\DoxyCodeLine{119 \}}
+\DoxyCodeLine{120 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(\mbox{\hyperlink{structparam}{param}},\textcolor{stringliteral}{"{}showallocated"{}}) == 0)\{}
+\DoxyCodeLine{122 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nUsage: \(\backslash\)t/showallocated;"{}});}
+\DoxyCodeLine{123 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nDescription: \(\backslash\)tprints the allocated memory in the heap"{}});}
+\DoxyCodeLine{124 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nParameters: \(\backslash\)t none \(\backslash\)n"{}});}
+\DoxyCodeLine{125 \}}
+\DoxyCodeLine{126 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(\mbox{\hyperlink{structparam}{param}},\textcolor{stringliteral}{"{}showfree"{}}) == 0)\{}
+\DoxyCodeLine{128 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nUsage: \(\backslash\)t/showfree;"{}});}
+\DoxyCodeLine{129 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nDescription: \(\backslash\)tprints the free memory in the heap"{}});}
+\DoxyCodeLine{130 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nParameters: \(\backslash\)t none \(\backslash\)n"{}});}
+\DoxyCodeLine{131 \}}
+\DoxyCodeLine{132 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(strcmp(\mbox{\hyperlink{structparam}{param}},\textcolor{stringliteral}{"{}showmem"{}}) == 0)\{}
+\DoxyCodeLine{134 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nUsage: \(\backslash\)t/showmem;"{}});}
+\DoxyCodeLine{135 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nDescription: \(\backslash\)tprints the heap"{}});}
+\DoxyCodeLine{136 printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nParameters: \(\backslash\)t none \(\backslash\)n"{}});}
+\DoxyCodeLine{137 \}}
+\DoxyCodeLine{138     \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{139     klogv(\textcolor{stringliteral}{"{}Command Invalid!"{}});}
+\DoxyCodeLine{140     printStringln(\textcolor{stringliteral}{"{}\(\backslash\)nAvailable Commands are: \(\backslash\)t/help; \(\backslash\)t/version; \(\backslash\)t/shutdown; \(\backslash\)t/setdate; \(\backslash\)t/getdate; \(\backslash\)t/settime; \(\backslash\)t/gettime;  \(\backslash\)t/deletepcb; \(\backslash\)t/setpriority; \(\backslash\)n/resume; \(\backslash\)t/suspend; \(\backslash\)t/testpcb; \(\backslash\)t/showready; \(\backslash\)t/showblocked; \(\backslash\)t/showall;  \(\backslash\)t/showpcb; \(\backslash\)t/infinite; \(\backslash\)t/showallalarms; \(\backslash\)t/alarm; \(\backslash\)t/showmem; \(\backslash\)t/showallocated; \(\backslash\)t/showfree;"{}});}
+\DoxyCodeLine{141     \}}
+\DoxyCodeLine{142 \}}
+
+\end{DoxyCode}

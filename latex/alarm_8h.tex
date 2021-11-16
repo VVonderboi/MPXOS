@@ -1,0 +1,48 @@
+\hypertarget{alarm_8h}{}\doxysection{mpx\+\_\+core/modules/alarm.h File Reference}
+\label{alarm_8h}\index{mpx\_core/modules/alarm.h@{mpx\_core/modules/alarm.h}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structalarms}{alarms}}
+\item 
+struct \mbox{\hyperlink{structalarmQueue}{alarm\+Queue}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{alarm_8h_a5f99dda3ea465e5f03ec6825b2e0031b}\label{alarm_8h_a5f99dda3ea465e5f03ec6825b2e0031b}} 
+typedef struct \mbox{\hyperlink{structalarms}{alarms}} {\bfseries alarms}
+\item 
+\mbox{\Hypertarget{alarm_8h_ab8896cbc1228c17116c12804973e3bb1}\label{alarm_8h_ab8896cbc1228c17116c12804973e3bb1}} 
+typedef struct \mbox{\hyperlink{structalarmQueue}{alarm\+Queue}} {\bfseries alarm\+Queue}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{alarm_8h_aeea71d12a4d19767691fd7d22372c579}\label{alarm_8h_aeea71d12a4d19767691fd7d22372c579}} 
+void {\bfseries Init\+Alarm\+Queue} ()
+\item 
+\mbox{\Hypertarget{alarm_8h_ae0d2660e98440a5cea580585633c7de2}\label{alarm_8h_ae0d2660e98440a5cea580585633c7de2}} 
+\mbox{\hyperlink{structalarms}{alarms}} $\ast$ {\bfseries alarm} (char $\ast$message\+In, char $\ast$time)
+\item 
+\mbox{\Hypertarget{alarm_8h_a18b9797ed05496bbbd246852c9f1d30a}\label{alarm_8h_a18b9797ed05496bbbd246852c9f1d30a}} 
+void {\bfseries remove\+Alarm} (\mbox{\hyperlink{structalarms}{alarms}} $\ast$remove\+This\+Alarm)
+\item 
+\mbox{\Hypertarget{alarm_8h_a5d81413a94adc8abc7e4d1a396df70e2}\label{alarm_8h_a5d81413a94adc8abc7e4d1a396df70e2}} 
+void {\bfseries insert\+Alarm} (\mbox{\hyperlink{structalarms}{alarms}} $\ast$alarm\+In)
+\item 
+\mbox{\Hypertarget{alarm_8h_aa03c7629b53030f47268275c984c847a}\label{alarm_8h_aa03c7629b53030f47268275c984c847a}} 
+int {\bfseries alarm\+Checker} ()
+\item 
+\mbox{\Hypertarget{alarm_8h_a054cfc79dbde309bf1a000b7ec7df382}\label{alarm_8h_a054cfc79dbde309bf1a000b7ec7df382}} 
+int {\bfseries check\+Alarm\+Queue} ()
+\item 
+\mbox{\Hypertarget{alarm_8h_a6857f3dc0660f948d12b12496b76df3c}\label{alarm_8h_a6857f3dc0660f948d12b12496b76df3c}} 
+\mbox{\hyperlink{structalarmQueue}{alarm\+Queue}} $\ast$ {\bfseries Get\+AlarmQ} ()
+\item 
+\mbox{\Hypertarget{alarm_8h_a4bb2a9d2947a8b82c1dbbb6a13cb86f6}\label{alarm_8h_a4bb2a9d2947a8b82c1dbbb6a13cb86f6}} 
+void {\bfseries alarm\+Test} ()
+\item 
+\mbox{\Hypertarget{alarm_8h_a6ab94fb13ba0e3dc7179505cfd19907d}\label{alarm_8h_a6ab94fb13ba0e3dc7179505cfd19907d}} 
+void {\bfseries show\+Alarms} ()
+\end{DoxyCompactItemize}

@@ -1,0 +1,168 @@
+\hypertarget{date_8h}{}\doxysection{mpx\+\_\+core/modules/date.h File Reference}
+\label{date_8h}\index{mpx\_core/modules/date.h@{mpx\_core/modules/date.h}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{date_8h_a3fe15201582c4d1835bda8f7bf7df88e}{set\+Date}} (char $\ast$date)
+\item 
+void \mbox{\hyperlink{date_8h_affb6f9c7b2c1d585677a5bba1da35c06}{get\+Date}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{date_8h_affb6f9c7b2c1d585677a5bba1da35c06}\label{date_8h_affb6f9c7b2c1d585677a5bba1da35c06}} 
+\index{date.h@{date.h}!getDate@{getDate}}
+\index{getDate@{getDate}!date.h@{date.h}}
+\doxysubsubsection{\texorpdfstring{getDate()}{getDate()}}
+{\footnotesize\ttfamily void get\+Date (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Name = get\+Date~\newline
+Query = /get\+Date;~\newline
+Parameters\+: N/A~\newline
+Description\+: Returns the date in string form. 
+
+Definition at line 119 of file date.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{119               \{}
+\DoxyCodeLine{120     outb(0x70, 0x08);}
+\DoxyCodeLine{121     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} monthPrint =inb(0x71);    }
+\DoxyCodeLine{122     printString(\textcolor{stringliteral}{"{}The date is "{}});}
+\DoxyCodeLine{123     \mbox{\hyperlink{comhand_8h_af2e3fc21c963c4dc2c6b8bc7139e2fb1}{bcdToI}}(monthPrint);}
+\DoxyCodeLine{124     printString(\textcolor{stringliteral}{"{}/"{}});}
+\DoxyCodeLine{125     \textcolor{comment}{//printString("{}/"{});}}
+\DoxyCodeLine{126     }
+\DoxyCodeLine{127     outb(0x070, 0x07);}
+\DoxyCodeLine{128     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} dayPrint =inb(0x71);}
+\DoxyCodeLine{129     \mbox{\hyperlink{comhand_8h_af2e3fc21c963c4dc2c6b8bc7139e2fb1}{bcdToI}}(dayPrint);}
+\DoxyCodeLine{130     printString(\textcolor{stringliteral}{"{}/"{}});}
+\DoxyCodeLine{131     \textcolor{comment}{//printString("{}/"{});}}
+\DoxyCodeLine{132     }
+\DoxyCodeLine{133     outb(0x70, 0x09);}
+\DoxyCodeLine{134     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} half1Print =inb(0x71);}
+\DoxyCodeLine{135     \mbox{\hyperlink{comhand_8h_af2e3fc21c963c4dc2c6b8bc7139e2fb1}{bcdToI}}(half1Print);}
+\DoxyCodeLine{136     printString(\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{137     \textcolor{comment}{//printString("{}/"{});}}
+\DoxyCodeLine{138     }
+\DoxyCodeLine{139     outb(0x70, 0x32);}
+\DoxyCodeLine{140     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} half2Print =inb(0x71);}
+\DoxyCodeLine{141     \mbox{\hyperlink{comhand_8h_af2e3fc21c963c4dc2c6b8bc7139e2fb1}{bcdToI}}(half2Print);}
+\DoxyCodeLine{142     printStringln(\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{143     \textcolor{comment}{//printStringln("{}"{});}}
+\DoxyCodeLine{144 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{date_8h_a3fe15201582c4d1835bda8f7bf7df88e}\label{date_8h_a3fe15201582c4d1835bda8f7bf7df88e}} 
+\index{date.h@{date.h}!setDate@{setDate}}
+\index{setDate@{setDate}!date.h@{date.h}}
+\doxysubsubsection{\texorpdfstring{setDate()}{setDate()}}
+{\footnotesize\ttfamily void set\+Date (\begin{DoxyParamCaption}\item[{char $\ast$}]{date }\end{DoxyParamCaption})}
+
+Name = set\+Date~\newline
+Query = /set\+Date = (parameter);~\newline
+Parameters\+: month/day/year (xx/yy/zzzz)~\newline
+Description\+: Sets the date based on the inputted string. 
+
+Definition at line 16 of file date.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16                         \{}
+\DoxyCodeLine{17     cli();}
+\DoxyCodeLine{18     }
+\DoxyCodeLine{19     \textcolor{keywordtype}{char} dateCopy[strlen(date)];}
+\DoxyCodeLine{20     strcpy(dateCopy,date);}
+\DoxyCodeLine{21     }
+\DoxyCodeLine{22     outb(0x70,0x08);}
+\DoxyCodeLine{23     }
+\DoxyCodeLine{24     \textcolor{keywordtype}{char} monthArray[3];}
+\DoxyCodeLine{25     memset(monthArray, \textcolor{charliteral}{'\(\backslash\)0'}, 3);}
+\DoxyCodeLine{26     monthArray[0]=dateCopy[0];}
+\DoxyCodeLine{27     monthArray[1]=dateCopy[1];}
+\DoxyCodeLine{28     monthArray[2]=\textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{29     }
+\DoxyCodeLine{30     \textcolor{keywordtype}{int} month = atoi(monthArray);}
+\DoxyCodeLine{31     \textcolor{keywordflow}{if} (month > 12 || month < 1)\{}
+\DoxyCodeLine{32         klogv(\textcolor{stringliteral}{"{}Not a valid month, please enter between 1 and 12 inclusive."{}});}
+\DoxyCodeLine{33         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{34     \}}
+\DoxyCodeLine{35     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} temp10= \mbox{\hyperlink{comhand_8h_a2e1fc84515d116c4f6dbe88d321abf65}{iToBcd}}(month);}
+\DoxyCodeLine{36     outb(0x71, temp10);}
+\DoxyCodeLine{37     }
+\DoxyCodeLine{38     }
+\DoxyCodeLine{39     outb(0x70,0x07);}
+\DoxyCodeLine{40     \textcolor{keywordtype}{char} dayArray[3];}
+\DoxyCodeLine{41     memset(dayArray, \textcolor{charliteral}{'\(\backslash\)0'}, 3);}
+\DoxyCodeLine{42     dayArray[0]=dateCopy[3];}
+\DoxyCodeLine{43     dayArray[1]=dateCopy[4];}
+\DoxyCodeLine{44     dayArray[2]=\textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{45     }
+\DoxyCodeLine{46     \textcolor{keywordtype}{int} day = atoi(dayArray);}
+\DoxyCodeLine{47     \textcolor{keywordflow}{if} (day > 31 || day < 1)\{}
+\DoxyCodeLine{48         klogv(\textcolor{stringliteral}{"{}Not a valid day, please enter between 1 and 31 inclusive."{}});}
+\DoxyCodeLine{49         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{50     \}}
+\DoxyCodeLine{51     \textcolor{keywordflow}{if}((monthArray[1] == \textcolor{charliteral}{'2'} || monthArray[1] == \textcolor{charliteral}{'4'} || monthArray[1] == \textcolor{charliteral}{'6'} || monthArray[1] == \textcolor{charliteral}{'8'} || monthArray[1] == \textcolor{charliteral}{'9'} || month == 11) \&\& day == 31)\{}
+\DoxyCodeLine{52         klogv(\textcolor{stringliteral}{"{}Not a valid day for this month, please enter a new date."{}});}
+\DoxyCodeLine{53         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{54     \}}
+\DoxyCodeLine{55     \textcolor{keywordtype}{char} year[5];}
+\DoxyCodeLine{56     memset(year,\textcolor{charliteral}{'\(\backslash\)0'},5);}
+\DoxyCodeLine{57     year[0]=dateCopy[6];}
+\DoxyCodeLine{58     year[1]=dateCopy[7];}
+\DoxyCodeLine{59     year[2]=dateCopy[8];}
+\DoxyCodeLine{60     year[3]=dateCopy[9];}
+\DoxyCodeLine{61     year[4]=\textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{62     \textcolor{keywordtype}{int} yearTemp = atoi(year);}
+\DoxyCodeLine{63     \textcolor{keywordflow}{if}(yearTemp < 2021 || yearTemp > 2100)\{}
+\DoxyCodeLine{64         klogv(\textcolor{stringliteral}{"{}Not a supported year, please choose a new year."{}});}
+\DoxyCodeLine{65         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{66     \}}
+\DoxyCodeLine{67     \textcolor{keywordflow}{if}(month==2 \&\& day > 28)\{}
+\DoxyCodeLine{68         \textcolor{keywordflow}{if}((yearTemp\%4)==0)\{}
+\DoxyCodeLine{69             \textcolor{keywordflow}{if}(day==29)\{}
+\DoxyCodeLine{70             \}}
+\DoxyCodeLine{71             \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{72                 klogv(\textcolor{stringliteral}{"{}Not a valid day for this month, please enter a new date."{}});}
+\DoxyCodeLine{73                 \textcolor{keywordflow}{return};}
+\DoxyCodeLine{74             \}}
+\DoxyCodeLine{75         \}}
+\DoxyCodeLine{76         \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{77             klogv(\textcolor{stringliteral}{"{}Not valid, please choose a new date."{}});}
+\DoxyCodeLine{78             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{79         \}}
+\DoxyCodeLine{80         }
+\DoxyCodeLine{81     \}}
+\DoxyCodeLine{82     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} temp11= \mbox{\hyperlink{comhand_8h_a2e1fc84515d116c4f6dbe88d321abf65}{iToBcd}}(day);}
+\DoxyCodeLine{83     outb(0x71,temp11);}
+\DoxyCodeLine{84     }
+\DoxyCodeLine{85     outb(0x70,0x09);}
+\DoxyCodeLine{86     \textcolor{keywordtype}{char} half1Array[3];}
+\DoxyCodeLine{87     memset(half1Array, \textcolor{charliteral}{'\(\backslash\)0'}, 3);}
+\DoxyCodeLine{88     \textcolor{keywordtype}{char} half2Array[3];}
+\DoxyCodeLine{89     memset(half2Array, \textcolor{charliteral}{'\(\backslash\)0'}, 3);}
+\DoxyCodeLine{90     half1Array[0]=dateCopy[6];}
+\DoxyCodeLine{91     half1Array[1]=dateCopy[7];}
+\DoxyCodeLine{92     half1Array[2]=\textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{93     half2Array[0]=dateCopy[8];}
+\DoxyCodeLine{94     half2Array[1]=dateCopy[9];}
+\DoxyCodeLine{95     half2Array[2]=\textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{96     }
+\DoxyCodeLine{97     \textcolor{keywordtype}{int} half1 = atoi(half1Array);}
+\DoxyCodeLine{98     \textcolor{keywordflow}{if} (strlen(dateCopy)>10)\{}
+\DoxyCodeLine{99         klogv(\textcolor{stringliteral}{"{}Not a valid date, please enter a new date."{}});}
+\DoxyCodeLine{100         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{101     \}}
+\DoxyCodeLine{102     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} temp12 = \mbox{\hyperlink{comhand_8h_a2e1fc84515d116c4f6dbe88d321abf65}{iToBcd}}(half1);}
+\DoxyCodeLine{103     outb(0x71,temp12);}
+\DoxyCodeLine{104     }
+\DoxyCodeLine{105     outb(0x70,0x32);}
+\DoxyCodeLine{106     \textcolor{keywordtype}{int} half2 = atoi(half2Array);}
+\DoxyCodeLine{107     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} temp13 = \mbox{\hyperlink{comhand_8h_a2e1fc84515d116c4f6dbe88d321abf65}{iToBcd}}(half2);}
+\DoxyCodeLine{108     outb(0x71,temp13);}
+\DoxyCodeLine{109                 }
+\DoxyCodeLine{110     sti();}
+\DoxyCodeLine{111 \}}
+
+\end{DoxyCode}
