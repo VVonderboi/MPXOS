@@ -2,7 +2,7 @@ A project for Dr. Camille Hayhurst at WVU in 2021, for their Operating Systems S
 
 For this project, we used a virtual machine running Ubuntu 20.04 and wrote the mpx operating system in C
 
-A brief overview of features implemented:
+Some of the featuers implemented:
 
 Running programs (with optional priority)
 Reading/setting the system date and time, 
